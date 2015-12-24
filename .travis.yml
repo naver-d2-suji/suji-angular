@@ -10,3 +10,5 @@ script:
   grunt test
 notifications:
     slack: suji:3sWST48WZ1iwOscMAWuGbcR4
+addons:
+  mariadb: '10.0'
