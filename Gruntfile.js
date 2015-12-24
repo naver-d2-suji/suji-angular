@@ -8,10 +8,34 @@ module.exports = function (grunt) {
   // load all grunt tasks
   require('load-grunt-tasks')(grunt);
 
+  grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-open');
+
   var reloadPort = 35729, files;
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+
+    /////////////////////
+    // Added by Tak on 2015-12-24
+    mochaTest: {
+      test: {
+        options: {
+          reporter: 'spec',
+          //captureFile: 'results.txt', // Optionally capture the reporter output to a file
+          quiet: false, // Optionally suppress output to standard out (defaults to false)
+          clearRequireCache: false // Optionally clear the require cache before running tests (defaults to false)
+        },
+        src: ['routes/**/*.spec.js']
+      }
+    },
+
+    open: {
+      server: {
+        url: 'http://localhost:3000'
+      }
+    },
+
     develop: {
       server: {
         file: 'bin/www'
@@ -72,8 +96,18 @@ module.exports = function (grunt) {
     }, 500);
   });
 
+  grunt.registerTask('serve', function () {
+    grunt.task.run([
+      'mochaTest',
+      'default'
+    ]);
+  });
+
+  grunt.registerTask('test', 'mochaTest');
+
   grunt.registerTask('default', [
     'develop',
+    'open',
     'watch'
   ]);
 };
