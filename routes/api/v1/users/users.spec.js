@@ -13,6 +13,7 @@ describe('GET /api/v1/users', function() {
       .end(function(err, res) {
         if (err) return done(err);
         res.body.should.be.instanceof(Array);
+        console.log(res.body);
         done();
       });
   });
