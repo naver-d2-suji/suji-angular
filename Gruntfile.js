@@ -1,5 +1,4 @@
 'use strict';
-
 var request = require('request');
 
 module.exports = function (grunt) {
@@ -27,12 +26,6 @@ module.exports = function (grunt) {
           clearRequireCache: false // Optionally clear the require cache before running tests (defaults to false)
         },
         src: ['routes/**/*.spec.js']
-      }
-    },
-
-    open: {
-      server: {
-        url: 'http://localhost:3000'
       }
     },
 
@@ -74,6 +67,11 @@ module.exports = function (grunt) {
           livereload: reloadPort
         }
       }
+    },
+    open: {
+      server: {
+        url: 'http://localhost:3000'
+      }
     }
   });
 
@@ -85,27 +83,26 @@ module.exports = function (grunt) {
     var done = this.async();
     setTimeout(function () {
       request.get('http://localhost:' + reloadPort + '/changed?files=' + files.join(','),  function (err, res) {
-          var reloaded = !err && res.statusCode === 200;
-          if (reloaded) {
-            grunt.log.ok('Delayed live reload successful.');
-          } else {
-            grunt.log.error('Unable to make a delayed live reload.');
-          }
-          done(reloaded);
-        });
+        var reloaded = !err && res.statusCode === 200;
+        if (reloaded) {
+          grunt.log.ok('Delayed live reload successful.');
+        } else {
+          grunt.log.error('Unable to make a delayed live reload.');
+        }
+        done(reloaded);
+      });
     }, 500);
   });
 
-  grunt.registerTask('serve', function () {
-    grunt.task.run([
-      'mochaTest',
-      'default'
-    ]);
-  });
+  grunt.registerTask('default', [
+    'develop',
+    'watch'
+  ]);
 
   grunt.registerTask('test', 'mochaTest');
 
-  grunt.registerTask('default', [
+  grunt.registerTask('serve', [
+    'mochaTest',
     'develop',
     'open',
     'watch'

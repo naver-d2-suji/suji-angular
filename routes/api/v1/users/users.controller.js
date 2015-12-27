@@ -1,18 +1,8 @@
-'use strict'
-var Client = require('mariasql');
-
-var c = new Client({
-  host: 'localhost',
-  user: 'root',
-  password: ''
-});
+'use strict';
+var db = require('./users.model.js');
 
 exports.index = function(req, res) {
-  c.query('SHOW DATABASES', function(err, rows) {
-    if (err)
-      throw err;
-    res.send(rows);
+  db.showList(function(results){
+    res.send(results);
   });
-  c.end();
 };
-
