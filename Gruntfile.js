@@ -7,31 +7,30 @@ module.exports = function (grunt) {
   // load all grunt tasks
   require('load-grunt-tasks')(grunt);
 
-  grunt.loadNpmTasks('grunt-mocha-test');
-  grunt.loadNpmTasks('grunt-open');
-
   var reloadPort = 35729, files;
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-
     /////////////////////
     // Added by Tak on 2015-12-24
     mochaTest: {
       test: {
         options: {
           reporter: 'spec',
-          //captureFile: 'results.txt', // Optionally capture the reporter output to a file
-          quiet: false, // Optionally suppress output to standard out (defaults to false)
-          clearRequireCache: false // Optionally clear the require cache before running tests (defaults to false)
+          quiet: false,
+          clearRequireCache: false
         },
         src: ['routes/**/*.spec.js']
       }
     },
-
     develop: {
       server: {
         file: 'bin/www'
+      }
+    },
+    open: {
+      server : {
+        url : 'http://localhost:3000'
       }
     },
     watch: {
@@ -43,7 +42,7 @@ module.exports = function (grunt) {
         files: [
           'bin/www',
           'app.js',
-          'routes/*.js'
+          'routes/**/*.js'
         ],
         tasks: ['develop', 'delayed-livereload']
       },
@@ -67,14 +66,8 @@ module.exports = function (grunt) {
           livereload: reloadPort
         }
       }
-    },
-    open: {
-      server: {
-        url: 'http://localhost:3000'
-      }
     }
   });
-
   grunt.config.requires('watch.server.files');
   files = grunt.config('watch.server.files');
   files = grunt.file.expand(files);
