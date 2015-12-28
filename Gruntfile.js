@@ -11,6 +11,28 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+
+    // Generate DB, Tables automatically
+    shell: {
+      options: {
+        stdout: true,
+        stderr: true,
+        failOnError: true
+      },
+      create_db :{
+        command : 'mysql -u root < resources/createDB.sql'
+      },
+      crete_table : {
+        command : 'mysql -u root suji_dev < resources/createTable.sql'
+      },
+      insert_objects : {
+        command : 'mysql -u root suji_dev < resources/insertObjects.sql'
+      }
+      //drop_db : {
+      //  command : 'mysql -u root < resources/dropDB.sql'
+      //}
+    },
+
     /////////////////////
     // Added by Tak on 2015-12-24
     mochaTest: {
@@ -42,7 +64,8 @@ module.exports = function (grunt) {
         files: [
           'bin/www',
           'app.js',
-          'routes/**/*.js'
+          'routes/**/*.js',
+          'views/**/*.ejs'
         ],
         tasks: ['develop', 'delayed-livereload']
       },
@@ -92,9 +115,15 @@ module.exports = function (grunt) {
     'watch'
   ]);
 
-  grunt.registerTask('test', 'mochaTest');
+  grunt.registerTask('test', [
+    'shell',
+    'mochaTest'
+  ]);
+
+  grunt.registerTask('prepare-db', 'shell');
 
   grunt.registerTask('serve', [
+    'shell',
     'mochaTest',
     'develop',
     'open',

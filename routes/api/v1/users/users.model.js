@@ -1,14 +1,19 @@
 'use strict';
 var Client = require('mariasql');
+var async = require('async');
 
 var c = new Client({
   host: 'localhost',
   user: 'root',
-  password: ''
+  password: '',
+  db: 'suji_dev'
 });
 
-exports.showList = function(callback){
-  c.query('SHOW DATABASES', function(err, rows) {
+var ERROR_DUPLICATE = 100;
+var ERROR_INSERT_USER = 101;
+
+exports.showUserID = function(callback){
+  c.query('SELECT ID FROM USER', function(err, rows){
     if (err)
       throw err;
     callback(rows);
@@ -16,21 +21,56 @@ exports.showList = function(callback){
   c.end();
 };
 
-exports.createUser = function(datas, callback){
+
+function checkExistRow(_table, _column, _toCheck, callback){
+  var queryString = 'SELECT EXISTS(SELECT 1 FROM ' + _table + ' WHERE ' + _column + ' = :toCheck) AS checkResult';
+  var isDuplicate = false;
+
+  c.query(queryString, { toCheck :_toCheck }, function(err, row) {
+    if (err) throw err;
+    if (row[0].checkResult == 1) //0 : not duplicate, 1 : duplicate
+      isDuplicate = true;
+    callback(isDuplicate);
+  });
+  c.end();
+}
+
+function insertUser(datas, callback){
   var _id = datas[0];
   var _password = datas[1];
   var _admin_password = datas[2];
+  var isSuccess = false;
 
-  c.query('INSERT INTO USER(id, password, admin_password) VALUES(:id, :password, :admin_password)',
+  c.query('INSERT INTO USER(ID, PASSWORD, ADMIN_PASSWORD) VALUES(:id, :password, :admin_password)',
     { id : _id, password : _password, admin_password : _admin_password }, function(err, row){
-      var success;
-      if(err) throw err;
-      console.log(row);
-      if(row.affectedRows == 1){
-        success = true;
+      if(err) throw(err);
+      if(row.info.affectedRows == 1){
+        isSuccess = true;
       }
-      callback(success);
+      callback(isSuccess);
     });
-
   c.end();
+}
+
+exports.createUser = function(datas, callback){
+  var _id = datas[0];
+
+  async.waterfall([
+    function(callback){
+      checkExistRow('USER', 'ID', _id, function(isDuplicate){
+        if(isDuplicate) callback(true, ERROR_DUPLICATE);
+        else callback(null, isDuplicate);
+      });
+    },
+    function(isDuplicate, callback) {
+      insertUser(datas, function (success) {
+        if(!success) callback(true, ERROR_INSERT_USER);
+        else callback(null, success);
+      });
+    }],
+    function(err, results){
+      if(err) callback(results);
+      else callback(results);
+    }
+  );
 };
