@@ -1,11 +1,15 @@
 'use strict';
-var db = require('./users.model.js');
+var db = require('./user.model.js');
+var ERROR = require('../error.code.js');
 
-var ERROR_DUPLICATE = 100;
-var ERROR_INSERT_USER = 101;
+exports.index = function(req, res) {
+  db.showUserID(function(results){
+    res.send(results);
+  });
+};
 
 exports.join = function(req, res) {
-  res.render('users/join', {
+  res.render('user/join', {
     title : 'Join User'
   });
 };
@@ -22,15 +26,14 @@ exports.create = function(req, res) {
   }
 
   db.createUser(datas, function(isSuccess){
-    console.log(isSuccess);
     switch(isSuccess){
       case true:
         res.redirect('/');
-            break;
-      case ERROR_DUPLICATE:
+        break;
+      case ERROR.DUPLICATE:
         res.send('<script>alert("Error! Duplicate ID");history.back();</script>');
-            break;
-      case ERROR_INSERT_USER:
+        break;
+      case ERROR.INSERT_USER:
         res.send('<script>alert("Error! Insert User Error");history.back();</script>');
         break;
     }

@@ -1,6 +1,7 @@
 'use strict';
 var Client = require('mariasql');
 var async = require('async');
+var ERROR = require('../error.code.js');
 
 var c = new Client({
   host: 'localhost',
@@ -8,9 +9,6 @@ var c = new Client({
   password: '',
   db: 'suji_dev'
 });
-
-var ERROR_DUPLICATE = 100;
-var ERROR_INSERT_USER = 101;
 
 exports.showUserID = function(callback){
   c.query('SELECT ID FROM USER', function(err, rows){
@@ -34,6 +32,9 @@ function checkExistRow(_table, _column, _toCheck, callback){
   });
   c.end();
 }
+exports.checkExistsRows = checkExistRow;
+
+
 
 function insertUser(datas, callback){
   var _id = datas[0];
@@ -58,13 +59,13 @@ exports.createUser = function(datas, callback){
   async.waterfall([
     function(callback){
       checkExistRow('USER', 'ID', _id, function(isDuplicate){
-        if(isDuplicate) callback(true, ERROR_DUPLICATE);
+        if(isDuplicate) callback(true, ERROR.DUPLICATE);
         else callback(null, isDuplicate);
       });
     },
     function(isDuplicate, callback) {
       insertUser(datas, function (success) {
-        if(!success) callback(true, ERROR_INSERT_USER);
+        if(!success) callback(true, ERROR.INSERT_USER);
         else callback(null, success);
       });
     }],

@@ -3,24 +3,10 @@ var app = require('../../../../app');
 var request = require('supertest');
 var should = require('should');
 
-//describe('GET /api/v1/users', function() {
-//  it('should respond with JSON array', function(done) {
-//    request(app)
-//      .get('/api/v1/users')
-//      .expect(200)
-//      .expect('Content-Type', /json/)
-//      .end(function(err, res) {
-//        if (err) return done(err);
-//        res.body.should.be.instanceof(Array);
-//        done();
-//      });
-//  });
-//});
-
-describe('GET /api/v1/users/join', function() {
+describe('GET /api/v1/category/add', function() {
   it('should respond with text/html', function(done) {
     request(app)
-      .get('/api/v1/users/join')
+      .get('/api/v1/category/add')
       .expect(200)
       .expect('Content-Type', "text/html; charset=utf-8")
       .end(function(err, res) {
@@ -31,11 +17,12 @@ describe('GET /api/v1/users/join', function() {
       });
   });
 });
-describe('POST /api/v1/users/join', function() {
+
+describe('POST /api/v1/category/add', function() {
   it('should respond with redirect on POST', function(done) {
     request(app)
-      .post('/api/v1/users/join')
-      .send({'id':'test', 'password':'testPassword', 'password_check':'testPassword', 'admin_password':'adminPassword'})
+      .post('/api/v1/category/add')
+      .send({'name':'test', 'shoppk':'1'})
       .expect(302) //redirect
       .end(function(err, res) {
         if (err) return done(err);
@@ -45,3 +32,4 @@ describe('POST /api/v1/users/join', function() {
       });
   });
 });
+
