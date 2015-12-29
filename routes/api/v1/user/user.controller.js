@@ -1,6 +1,6 @@
 'use strict';
 var db = require('./user.model.js');
-var ERROR = require('../error.code.js');
+var ERROR = require('../../../../components/error.code.js');
 
 exports.index = function(req, res) {
   db.showUserID(function(results){

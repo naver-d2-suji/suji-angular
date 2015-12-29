@@ -1,7 +1,7 @@
 'use strict';
 var Client = require('mariasql');
 var async = require('async');
-var ERROR = require('../error.code.js');
+var ERROR = require('../../../../components/error.code.js');
 
 var c = new Client({
   host: 'localhost',
