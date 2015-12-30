@@ -7,7 +7,7 @@ var c = new Client({
   host: 'localhost',
   user: 'root',
   password: '',
-  db: 'suji_dev'
+  db: 'suji_dev_v1'
 });
 
 exports.showUserID = function(callback){

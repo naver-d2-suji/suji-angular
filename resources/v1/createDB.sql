@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS suji_dev_v1;
+CREATE DATABASE suji_dev_v1;
+

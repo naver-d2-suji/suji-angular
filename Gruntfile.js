@@ -20,17 +20,22 @@ module.exports = function (grunt) {
         failOnError: true
       },
       create_db :{
-        command : 'mysql -u root < resources/createDB.sql'
+        command : 'mysql -u root < resources/v1.1/createDB.sql'
       },
       crete_table : {
-        command : 'mysql -u root suji_dev < resources/createTable.sql'
+        command : 'mysql -u root suji_dev < resources/v1.1/createSchema.sql'
+      },
+
+      // for v1 -> to be deleted
+      create_db_for_v1 :{
+        command : 'mysql -u root < resources/v1/createDB.sql'
+      },
+      crete_table_for_v1 : {
+        command : 'mysql -u root suji_dev_v1 < resources/v1/createTable.sql'
       },
       insert_objects : {
-        command : 'mysql -u root suji_dev < resources/insertObjects.sql'
-      }
-      //drop_db : {
-      //  command : 'mysql -u root < resources/dropDB.sql'
-      //}
+        command : 'mysql -u root suji_dev_v1 < resources/v1/insertObjects.sql'
+       }
     },
 
     /////////////////////

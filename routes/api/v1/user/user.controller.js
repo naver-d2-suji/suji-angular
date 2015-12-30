@@ -9,7 +9,7 @@ exports.index = function(req, res) {
 };
 
 exports.join = function(req, res) {
-  res.render('user/join', {
+  res.render('v1/user/join', {
     title : 'Join User'
   });
 };
