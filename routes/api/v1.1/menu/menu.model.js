@@ -11,35 +11,6 @@ var c = new Client({
   db: 'suji_dev'
 });
 
-exports.showMenu = function(callback){
-  c.query('SELECT * FROM MENU', function(err, rows){
-    if (err)
-      throw err;
-    callback(rows);
-  });
-  c.end();
-};
-
-function insertData(datas, callback){
-  var _name = datas[0];
-  var _price = datas[1];
-  var _cost = datas[2];
-  var _tax_mode = datas[3];
-  var _barcode = datas[4];
-  var _category_name = datas[5];
-  var isSuccess = false;
-
-  c.query('INSERT INTO MENU(NAME, PRICE, COST, TAX_MODE, BARCODE, CATEGORY_NAME) VALUES(:name, :price, :cost, :tax_mode, :barcode, :category_name)',
-    { name : _name, price : _price, cost : _cost, tax_mode : _tax_mode, barcode : _barcode, category_name : _category_name }, function(err, row){
-      if(err) throw(err);
-      if(row.info.affectedRows == 1){
-        isSuccess = true;
-      }
-      callback(isSuccess);
-    });
-  c.end();
-}
-
 exports.insertMenu = function(datas, callback){
   var _name = datas[0];
   var _category_name = datas[5];
@@ -69,3 +40,24 @@ exports.insertMenu = function(datas, callback){
     }
   );
 };
+
+function insertData(datas, callback){
+  var _name = datas[0];
+  var _price = datas[1];
+  var _cost = datas[2];
+  var _tax_mode = datas[3];
+  var _barcode = datas[4];
+  var _category_name = datas[5];
+  var isSuccess = false;
+
+  c.query('INSERT INTO MENU(NAME, PRICE, COST, TAX_MODE, BARCODE, CATEGORY_NAME) VALUES(:name, :price, :cost, :tax_mode, :barcode, :category_name)',
+    { name : _name, price : _price, cost : _cost, tax_mode : _tax_mode, barcode : _barcode, category_name : _category_name }, function(err, row){
+      if(err) throw(err);
+      if(row.info.affectedRows == 1){
+        isSuccess = true;
+      }
+      callback(isSuccess);
+    });
+  c.end();
+}
+

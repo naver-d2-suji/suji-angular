@@ -69,6 +69,7 @@ module.exports = function (grunt) {
         files: [
           'bin/www',
           'app.js',
+          'components/**/*.js',
           'routes/**/*.js',
           'views/**/*.ejs'
         ],

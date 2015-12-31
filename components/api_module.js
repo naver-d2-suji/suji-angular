@@ -9,7 +9,7 @@ var c = new Client({
   db: 'suji_dev'
 });
 
-function checkExistRow(_table, _column, _toCheck, callback){
+exports.checkExistsRows = function(_table, _column, _toCheck, callback){
   var queryString = 'SELECT EXISTS(SELECT 1 FROM ' + _table + ' WHERE ' + _column + ' = :toCheck) AS checkResult';
   var isDuplicate = false;
 
@@ -20,6 +20,14 @@ function checkExistRow(_table, _column, _toCheck, callback){
     callback(isDuplicate);
   });
   c.end();
-}
-exports.checkExistsRows = checkExistRow;
+};
 
+exports.selectTable = function(_table, callback){
+  var queryString = 'SELECT * FROM ' + _table ;
+  c.query(queryString, function(err, rows){
+    if (err)
+      throw err;
+    callback(rows);
+  });
+  c.end();
+};

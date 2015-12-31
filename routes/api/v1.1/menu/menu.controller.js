@@ -1,9 +1,10 @@
 'use strict';
 var db = require('./menu.model.js');
 var ERROR = require('../../../../components/error.code.js');
+var Module = require('../../../../components/api_module.js');
 
 exports.index = function(req, res) {
-  db.showMenu(function(results){
+  Module.selectTable('MENU', function(results){
     res.send(results);
   });
 };

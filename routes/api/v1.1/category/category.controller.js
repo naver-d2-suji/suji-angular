@@ -1,9 +1,10 @@
 'use strict';
 var db = require('./category.model.js');
 var ERROR = require('../../../../components/error.code.js');
+var Module = require('../../../../components/api_module.js');
 
 exports.index = function(req, res) {
-  db.showCategory(function(results){
+  Module.selectTable('CATEGORY', function(results){
     res.send(results);
   });
 };

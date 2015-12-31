@@ -11,16 +11,6 @@ var c = new Client({
   db: 'suji_dev'
 });
 
-exports.showCategory = function(callback){
- c.query('SELECT * FROM CATEGORY', function(err, rows){
-    if (err)
-      throw err;
-    callback(rows);
-  });
-  c.end();
-};
-
-
 exports.insertCategory = function(datas, callback){
   var _name = datas[0];
 
