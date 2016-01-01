@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title> <%= title %> </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <style type="text/css">
+    table{width: 400;}
+    th{background-color: gray;}
+  </style>
+</head>
+<body>
+<h1>Insert MENU</h1>
+<form name="frm1" id="frm1" action="/api/v1.1/menu/insert" method="post">
+  <table border="1" width="500">
+    <tr>
+      <th>NAME</th>
+      <td><input type="text" name="name" id="name" maxlength="12" size="20"></td>
+    </tr>
+    <tr>
+      <th>PRICE</th>
+      <td><input type="text" name="price" id="price" maxlength="12" size="20"></td>
+    </tr>
+    <tr>
+      <th>COST</th>
+      <td><input type="text" name="cost" id="cost" maxlength="12" size="20"></td>
+    </tr>
+    <tr>
+      <th>TAX_MODE</th>
+      <td><input type="text" name="tax_mode" id="tax_mode" maxlength="10" size="20"></td>
+    </tr>
+    <tr>
+      <th>BARCODE</th>
+      <td><input type="text" name="barcode" id="barcode" maxlength="10" size="20"></td>
+    </tr>
+    <tr>
+      <th>CATEGORY_NAME</th>
+      <td><input type="text" name="category_name" id="category_name" maxlength="10" size="20"></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input type="submit" value="INSERT" onclick="check()">
+        <input type="reset" value="CANCEL">
+      </td>
+    </tr>
+
+  </table>
+</form>
+
+
+</body>
+</html>
