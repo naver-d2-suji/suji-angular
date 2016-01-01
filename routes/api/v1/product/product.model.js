@@ -32,8 +32,8 @@ exports.insertItem = function (datas, callback){
   console.log('DATAS ' + datas[0], datas[1], datas[2], datas[3], datas[4], datas[5]);
   console.log(name, price, cost, tax, barcode, category);
 
-  c.query('INSERT INTO PRODUCT(NAME, PRICE, COST, TAX, BARCODE, CATEGORYPK) VALUES(:name, :price, :cost, :tax, :barcode, :category)',
-    { name : name, price : price, cost : cost, tax : tax, barcode : barcode, category : category }, function(err, row){
+  c.query('INSERT INTO PRODUCT(NAME, PRICE, COST, TAX, BARCODE) VALUES(:name, :price, :cost, :tax, :barcode)',
+    { name : name, price : price, cost : cost, tax : tax, barcode : barcode }, function(err, row){
       if(err)
         throw(err);
       if(row.info.affectedRows == 1){
