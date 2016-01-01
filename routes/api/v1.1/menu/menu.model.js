@@ -18,7 +18,7 @@ exports.insertMenu = function(datas, callback){
   async.waterfall([
     function(callback){
       Module.checkExistsRows('CATEGORY', 'NAME', _category_name, function(isName){
-        if(!isName) callback(true, ERROR.NO_CATEGORY_NAME);
+        if(!isName) callback(true, ERROR.NO_NAME_IN_CATEGORY);
         else callback(null, isName);
       });
     },
@@ -41,6 +41,46 @@ exports.insertMenu = function(datas, callback){
   );
 };
 
+exports.deleteMenu = function(datas, callback){
+  var _name = datas[0];
+  console.log(datas);
+
+  async.waterfall([
+    function(callback){
+      Module.checkExistsRows('MENU', 'NAME', _name, function(isName){
+        if(!isName) callback(true, ERROR.NO_NAME_IN_MENU);
+        else callback(null, isName);
+      });
+    },
+    function(isName, callback){
+      deleteData(datas, function(success){
+        if(!success) callback(true, ERROR.DELETE_MENU);
+        else callback(null, success);
+      });
+    }],
+    function(err, results){
+      if(err) callback(results);
+      else callback(results);
+    }
+  );
+};
+
+function deleteData(datas, callback){
+  var _name = datas[0];
+  var isSuccess = false;
+
+  c.query('DELETE FROM MENU WHERE NAME = :name', { name : _name }, function(err, row){
+    console.log(row);
+    if(err) throw(err);
+    if(row.info.affectedRows == 1){
+      isSuccess = true;
+    }
+    callback(isSuccess);
+  });
+  c.end();
+}
+
+
 function insertData(datas, callback){
   var _name = datas[0];
   var _price = datas[1];
@@ -60,4 +100,6 @@ function insertData(datas, callback){
     });
   c.end();
 }
+
+
 

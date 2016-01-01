@@ -46,3 +46,18 @@ describe('POST /api/v1.1/menu/insert', function() {
       });
   });
 });
+
+describe('POST /api/v1.1/menu/delete', function() {
+  it('should respond with redirect on POST', function(done) {
+    request(app)
+      .post('/api/v1.1/menu/delete')
+      .send({ 'name' : '_name' })
+      .expect(302) //redirect
+      .end(function(err, res) {
+        if (err) return done(err);
+        res.should.exist;
+        res.status.should.equal(302);
+        done();
+      });
+  });
+});

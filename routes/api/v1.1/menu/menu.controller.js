@@ -29,7 +29,7 @@ exports.insert = function(req, res) {
       case true:
         res.redirect('/');
         break;
-      case ERROR.NO_CATEGORY_NAME:
+      case ERROR.NO_NAME_IN_CATEGORY:
         res.send('<script>alert("Error! There is no Category name");history.back();</script>');
         break;
       case ERROR.DUPLICATE:
@@ -37,6 +37,26 @@ exports.insert = function(req, res) {
         break;
       case ERROR.INSERT_MENU:
         res.send('<script>alert("Error! Insert Menu Error");history.back();</script>');
+        break;
+    }
+  });
+};
+
+exports.delete = function(req, res){
+  var _name = req.body.name;
+  var datas = [_name];
+  console.log(req.body);
+
+  db.deleteMenu(datas, function(isSuccess){
+    switch(isSuccess){
+      case true:
+        res.redirect('/');
+        break;
+      case ERROR.NO_NAME_IN_MENU:
+        res.send('<script>alert("Error! There is no NAME in MENU");history.back();</script>');
+        break;
+      case ERROR.DELETE_MENU:
+        res.send('<script>alert("Error! Delete MENU Error");history.back();</script>');
         break;
     }
   });

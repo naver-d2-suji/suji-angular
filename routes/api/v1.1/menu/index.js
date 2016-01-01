@@ -6,5 +6,6 @@ var router = express.Router();
 router.get('/', controller.index);
 router.get('/insert', controller.renderInsert);
 router.post('/insert', controller.insert);
+router.post('/delete', controller.delete);
 
 module.exports = router;
