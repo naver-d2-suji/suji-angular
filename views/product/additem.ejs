@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<body>
+<h1>상품 추가</h1>
+<form name="insertItemForm" id="insertItemForm" method="post" action="/api/v1/product/createitem">
+  <table border="1" width="400">
+    <tr>
+      <td>상품 이름</td>
+      <td><input type="text" id="itemName" name="itemName" value=""></td>
+    </tr>
+    <tr>
+      <td>가격</td>
+      <td><input type="text" id="itemPrice" name="itemPrice" value=""></td>
+    </tr>
+    <tr>
+      <td>원가</td>
+      <td><input type="text" id="itemCost" name="itemCost" value=""></td>
+    </tr>
+    <tr>
+      <td>세금 여부</td>
+      <td><input type="text" id="itemTax" name="itemTax" value=""></td>
+    </tr>
+    <tr>
+      <td>바코드</td>
+      <td><input type="text" id="itemBarcode" name="itemBarcode" value=""></td>
+    </tr>
+    <tr>
+      <td>상품 종류</td>
+      <td><input type="text" id="itemCategory" name="itemCategory" value=""></td>
+    </tr>
+  </table>
+</form>
+<button type="button" onclick="insertItem()">INSERT</button>
+<script>
+  function insertItem() {
+    var name = document.getElementById("itemName").value;
+    var price = document.getElementById("itemPrice").value;
+    var cost = document.getElementById("itemCost").value;
+    var tax = document.getElementById("itemTax").value;
+    var barcode = document.getElementById("itemBarcode").value;
+    var category = document.getElementById("itemCategory").value;
+
+    if (name.length == 0 || price.length == 0 || cost.length == 0 || tax.length == 0 || barcode.length == 0 || category.length == 0) {
+      alert("입력하지 않은 부분이 있습니다.");
+    }
+    else {
+      document.insertItemForm.submit();
+    }
+  }
+</script>
+</body>
+<body>
