@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<body>
+<h1>상품 검색</h1>
+<form name="searchItemForm" id="searchItemForm" method="post" action="/api/v1/product/searchitem">
+  <table border="1" width="400">
+    <tr>
+      <td>상품 이름</td>
+      <td><input type="text" id="itemName" name="itemName" value=""></td>
+    </tr>
+  </table>
+</form>
+<button type="button" onclick="searchItem()">SEARCH</button>
+<script>
+  function searchItem() {
+    var name = document.getElementById("itemName").value;
+
+    if (name.length == 0) {
+      alert("상품 이름을 입력하세요!");
+    }
+    else {
+      document.searchItemForm.submit();
+    }
+  }
+</script>
+</body>
+<body>

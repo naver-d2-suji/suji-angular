@@ -10,7 +10,12 @@ var router = express.Router();
 
 router.get('/', controller.index);
 router.get('/additem', controller.additem);
-router.post('/createitem', controller.createItem);
 router.get('/showdata', controller.showData);
+router.get('/deleteitem', controller.deleteitem);
+router.get('/search', controller.searchitem);
+
+router.post('/createitem', controller.createItem);
+router.post('/removeitem', controller.deleteItem);
+router.post('/searchitem', controller.searchItem);
 
 module.exports = router;

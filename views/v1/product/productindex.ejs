@@ -1,10 +1,25 @@
 <!doctype html>
 <html lang="en">
 <body>
-<button type="button" onclick="addItem()">add Item</button>
+<button type="button" onclick="addItem()">Add Item</button>
+<button type="button" onclick="deleteItem()">Delete Item</button>
+<button type="button" onclick="searchItem()">Search Item</button>
+<button type="button" onclick="showItem()">Show Item</button>
 <script>
   function addItem() {
     location.href = "product/additem";
+  }
+
+  function deleteItem() {
+    location.href = "product/deleteitem";
+  }
+
+  function searchItem() {
+    location.href = "product/search";
+  }
+
+  function showItem() {
+    location.href = "product/showdata";
   }
 </script>
 </body>

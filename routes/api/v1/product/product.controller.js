@@ -18,6 +18,18 @@ exports.additem = function(req, res) {
   });
 };
 
+exports.deleteitem = function (req, res) {
+  res.render('v1/product/deleteitem', {
+    title: 'Delete Item'
+  });
+};
+
+exports.searchitem = function (req, res) {
+  res.render('v1/product/searchitem', {
+    title: 'Search Item'
+  });
+};
+
 exports.createItem = function(req, res) {
   console.log('Form Data');
   var name = req.body.itemName;
@@ -34,6 +46,33 @@ exports.createItem = function(req, res) {
     if (isSuccess) {
       res.send('<script>alert("Insert Item Success");history.back();</script>');
     }
+  });
+};
+
+exports.deleteItem = function (req, res) {
+  console.log('Form Data');
+  var name = req.body.itemName;
+
+  console.log(name);
+
+  db.removeItem(name, function (isSuccess) {
+    if (isSuccess) {
+      res.send('<script>alert("Remove Item Success");history.back();</script>');
+    }
+    else {
+      res.send('<script>alert("Remove Item fail");history.back();</script>')
+    }
+  });
+};
+
+exports.searchItem = function (req, res) {
+  console.log('Form Data');
+  var name = req.body.itemName;
+
+  console.log(name);
+
+  db.searchItem(name, function (result) {
+    res.send(result);
   });
 };
 
