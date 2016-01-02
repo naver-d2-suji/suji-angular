@@ -82,7 +82,6 @@ function deleteData(datas, callback){
 
   c.query('DELETE FROM PURCHASE WHERE NAME = :name AND QUANTITY = :quantity AND PURCHASE_TIME = :purchase_time',
     { name : _name, quantity : _quantity, purchase_time : _purchase_time}, function(err, row){
-    console.log(row);
     if(err) throw(err);
     if(row.info.affectedRows == 1){
       isSuccess = true;

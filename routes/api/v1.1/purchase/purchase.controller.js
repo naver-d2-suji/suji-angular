@@ -43,7 +43,6 @@ exports.delete = function(req, res){
   var datas = [_name, _quantity, _purchase_time];
 
   db.deletePurchase(datas, function(isSuccess){
-    console.log(isSuccess);
     switch(isSuccess){
       case true:
         res.redirect('/');

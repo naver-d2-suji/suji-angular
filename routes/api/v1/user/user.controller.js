@@ -15,7 +15,6 @@ exports.join = function(req, res) {
 };
 
 exports.create = function(req, res) {
-  console.log(req.body);
   var _id = req.body.id;
   var _password = req.body.password;
   var _admin_password = req.body.admin_password;

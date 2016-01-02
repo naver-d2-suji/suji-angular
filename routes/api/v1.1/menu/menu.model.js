@@ -70,7 +70,6 @@ function deleteData(datas, callback){
   var isSuccess = false;
 
   c.query('DELETE FROM MENU WHERE NAME = :name', { name : _name }, function(err, row){
-    console.log(row);
     if(err) throw(err);
     if(row.info.affectedRows == 1){
       isSuccess = true;
