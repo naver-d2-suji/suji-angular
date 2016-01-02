@@ -38,8 +38,7 @@ function insertData(datas, callback){
   var _name = datas[0];
   var isSuccess = false;
 
-  c.query('INSERT INTO CATEGORY(NAME) VALUES(:name)',
-    {name:_name}, function(err, row){
+  c.query('INSERT INTO CATEGORY(NAME) VALUES(:name)', { name:_name }, function(err, row){
       if(err) throw(err);
       if(row.info.affectedRows == 1){
         isSuccess = true;

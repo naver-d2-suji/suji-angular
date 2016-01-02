@@ -45,7 +45,6 @@ exports.insert = function(req, res) {
 exports.delete = function(req, res){
   var _name = req.body.name;
   var datas = [_name];
-  console.log(req.body);
 
   db.deleteMenu(datas, function(isSuccess){
     switch(isSuccess){
