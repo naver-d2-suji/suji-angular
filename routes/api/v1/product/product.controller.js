@@ -7,13 +7,13 @@
 var db = require('./product.model.js');
 
 exports.index = function(req, res) {
-  res.render('../views/product/productindex', {
+  res.render('v1/product/productindex', {
     title : 'Product Index'
   });
 };
 
 exports.additem = function(req, res) {
-  res.render('../views/product/additem', {
+  res.render('v1/product/additem', {
     title : 'Add Item'
   });
 };

@@ -8,9 +8,9 @@ var Client = require('mariasql');
 
 var c = new Client({
   host: 'localhost',
-  user: 'Practice',
+  user: 'root',
   password: '',
-  db: 'Practice'
+  db: 'suji_dev_v1'
 });
 
 exports.showList = function (callback) {
