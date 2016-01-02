@@ -36,7 +36,7 @@ describe('POST /api/v1.1/category/insert', function() {
   it('should respond with redirect on POST', function(done) {
     request(app)
       .post('/api/v1.1/category/insert')
-      .send({'name':'test'})
+      .send({'name':'test2'})
       .expect(302) //redirect
       .end(function(err, res) {
         if (err) return done(err);

@@ -44,9 +44,12 @@ app.use('/api/v1/product', product);
 var menu = require('./routes/api/v1.1/menu');
 var category = require('./routes/api/v1.1/category');
 var history = require('./routes/api/v1.1/history');
+var purchase = require('./routes/api/v1.1/purchase');
+
 app.use('/api/v1.1/menu', menu);
 app.use('/api/v1.1/category', category);
 app.use('/api/v1.1/history', history);
+app.use('/api/v1.1/purchase', purchase);
 
 
 

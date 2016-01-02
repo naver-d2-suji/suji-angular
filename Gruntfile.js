@@ -25,6 +25,10 @@ module.exports = function (grunt) {
       crete_table : {
         command : 'mysql -u root suji_dev < resources/v1.1/createSchema.sql'
       },
+      insert_date : {
+        command : 'mysql -u root suji_dev < resources/v1.1/insertData.sql'
+      },
+
 
       // for v1 -> to be deleted
       create_db_for_v1 :{
