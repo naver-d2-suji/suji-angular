@@ -15,7 +15,7 @@ myApp.controller('browseCtrl', ['$scope', '$http', 'mySharedService', 'cartShare
 	var refresh = function() {
 		// use jquery to dynamically find and place new categories in html
 
-		$http.get('/itemlist').success(function(response) {
+		$http.get('/api/v1.1/menu').success(function(response) {
 			$scope.itemlist = response;
 		});
 
@@ -54,7 +54,7 @@ myApp.controller('browseCtrl', ['$scope', '$http', 'mySharedService', 'cartShare
 	$scope.select = function(item) {
 		if (isNaN(item.desiredAmount) || item.desiredAmount <= 0 || item.desiredAmount > item.stick) item.desiredAmount = 1;
 		$scope.cart.push(item);
-		$scope.total_price += item.price*item.desiredAmount;
+		$scope.total_price += item.PRICE*item.desiredAmount;
 	};
 
 	$scope.buyCart = function() {
