@@ -34,7 +34,7 @@ myApp.controller('loginCtrl', ['$scope', '$http', 'mySharedService', function($s
 
 	$scope.login = function() {
 		// authentication
-		$http.post('/login', $scope.user).success(function(response) {
+		$http.post('/api/v1.1/user/login', $scope.user).success(function(response) {
 			console.log(response);
 			if (typeof response === "string") {
 				$scope.error = response;

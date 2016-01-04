@@ -11,6 +11,11 @@ var c = new Client({
   db: 'suji_dev'
 });
 
+/**
+ *
+ * @param datas
+ * @param callback
+ */
 exports.insertCategory = function(datas, callback){
   var _name = datas[0];
 
