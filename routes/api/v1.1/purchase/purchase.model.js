@@ -35,8 +35,6 @@ exports.addPurchase = function(datas, callback){
 };
 
 exports.deletePurchase = function(datas, callback){
-  console.log(datas);
-
   async.waterfall([
     function(callback){
       checkExistInPurchase(datas, function(isExist){
