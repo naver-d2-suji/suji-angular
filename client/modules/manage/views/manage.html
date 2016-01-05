@@ -19,12 +19,12 @@
 <div id = "manage" ng-controller = "ManageController">
 	<table class = "table">
 		<thead>
-			<th>Name</th>
-			<th>Price</th>
-			<th>Cost</th>
-			<th>isTaxable</th>
-      <th>Category</th>
-			<th>Action</th>
+			<th><div class="text-info">Name</div></th>
+      <th><div class="text-info">Price</div></th>
+      <th><div class="text-info">Cost</div></th>
+      <th><div class="text-info">isTaxable</div></th>
+      <th><div class="text-info">Category</div></th>
+      <th><div class="text-info">Action</div></th>
 			<th>&nbsp;</th>
 		</thead>
 		<tbody>
@@ -45,6 +45,7 @@
 				-->
 			</tr>
 			<tr ng-repeat = "item in itemlist">
+
 				<td>{{item.NAME}}</td>
 				<td>{{item.PRICE}}</td>
 				<td>{{item.COST}}</td>

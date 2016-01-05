@@ -9,14 +9,7 @@ exports.index = function(req, res) {
   });
 };
 
-exports.renderAdd = function(req, res) {
-  res.render('v1.1/purchase/add', {
-    title : 'Add purchase'
-  });
-};
-
 exports.add = function(req, res) {
-  console.log('add', req.body);
   var result = false;
 
   req.body.forEach(function(eachItem){
@@ -47,29 +40,6 @@ exports.add = function(req, res) {
   } else {
     res.send('<script>alert("Error! Add PURCHASE Error");history.back();</script>');
   }
- /*
-
-  var _name = req.body.itemId;
-  var _quantity = req.body.orderedItemCnt;
-  var _total_price = req.body.totalPrice;
-  var _purchase_time = req.body.purchase_time;
-  var datas = [_name, _quantity, _total_price, _purchase_time];
-
-  db.addPurchase(datas, function(isSuccess){
-    switch(isSucdcess){
-      case true:
-        res.redirect('/');
-        break;
-      case ERROR.NO_NAME_IN_MENU:
-        res.send('<script>alert("Error! There is no name in MENU");history.back();</script>');
-        break;
-      case ERROR.ADD_PURCHASE:
-        res.send('<script>alert("Error! Add PURCHASE Error");history.back();</script>');
-        break;
-    }
-  });
-
-  */
 };
 
 exports.delete = function(req, res){

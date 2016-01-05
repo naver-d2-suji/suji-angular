@@ -7,8 +7,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./api/index');
-
 var app = express();
 
 var env = process.env.NODE_ENV || 'development';
@@ -28,18 +26,14 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client')));
 
-app.use('/', routes);
-
 // routes v1.1
 var menu = require('./api/v1.1/menu/index');
 var category = require('./api/v1.1/category/index');
-var history = require('./api/v1.1/history/index');
 var purchase = require('./api/v1.1/purchase/index');
 var user = require('./api/v1.1/user/index');
 
 app.use('/api/v1.1/menu', menu);
 app.use('/api/v1.1/category', category);
-app.use('/api/v1.1/history', history);
 app.use('/api/v1.1/purchase', purchase);
 app.use('/api/v1.1/user', user);
 

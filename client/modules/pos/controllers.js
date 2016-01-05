@@ -105,7 +105,7 @@ angular.module('POS')
     $http.post('/api/v1.1/purchase/add', $scope.order).success(function(response) {
         if (response) console.log(response);
         alert("Order total: $" + $scope.getSum() + "\n\nPayment received. Thanks.");
-      });
+    });
   };
 
   $scope.clearOrder = function() {
