@@ -11,6 +11,15 @@ var c = new Client({
   db: 'suji_dev'
 });
 
+exports.selectMenuTable = function(_category, callback){
+  c.query('SELECT NAME FROM MENU WHERE CATEGORY_NAME=:category',
+    {category : _category}, function(err, rows){
+      if(err) throw(err);
+      callback(rows);
+    });
+  c.end();
+};
+
 exports.insertMenu = function(datas, callback){
   var _name = datas[0];
   var _category_name = datas[5];

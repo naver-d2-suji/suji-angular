@@ -11,11 +11,15 @@ var c = new Client({
   db: 'suji_dev'
 });
 
-/**
- *
- * @param datas
- * @param callback
- */
+exports.selectCategoryTable = function(_username, callback){
+  c.query('SELECT NAME FROM CATEGORY WHERE USERNAME=:username',
+    {username : _username}, function(err, rows){
+      if(err) throw(err);
+      callback(rows);
+    });
+  c.end();
+};
+
 exports.insertCategory = function(datas, callback){
   var _name = datas[0];
 
@@ -41,9 +45,10 @@ exports.insertCategory = function(datas, callback){
 
 function insertData(datas, callback){
   var _name = datas[0];
+  var _username = datas[1];
   var isSuccess = false;
 
-  c.query('INSERT INTO CATEGORY(NAME) VALUES(:name)', { name:_name }, function(err, row){
+  c.query('INSERT INTO CATEGORY(NAME, USERNAME) VALUES(:name, :username)', { name:_name, username:_username }, function(err, row){
       if(err) throw(err);
       if(row.info.affectedRows == 1){
         isSuccess = true;

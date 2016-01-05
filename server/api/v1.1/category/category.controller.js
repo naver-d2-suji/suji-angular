@@ -4,7 +4,8 @@ var ERROR = require('../../../components/error.code.js');
 var Module = require('../../../components/api_module.js');
 
 exports.index = function(req, res) {
-  Module.selectTable('CATEGORY', function(results){
+  var _username = req.params.username;
+  db.selectCategoryTable(_username, function(results){
     res.send(results);
   });
 };
@@ -17,7 +18,8 @@ exports.renderInsert = function(req, res) {
 
 exports.insert = function(req, res) {
   var _name = req.body.name;
-  var datas = [_name];
+  var _username = req.params.username;
+  var datas = [_name, _username];
 
   db.insertCategory(datas, function (isSuccess) {
     switch(isSuccess){
