@@ -3,6 +3,7 @@
 // declare modules
 angular.module('Authentication', []);
 angular.module('Manage', []);
+angular.module('Category', []);
 angular.module('Register', []);
 angular.module('POS', []);
 angular.module('Home', []);
@@ -10,6 +11,7 @@ angular.module('Home', []);
 angular.module('BasicHttpAuthExample', [
     'Authentication',
     'Manage',
+    'Category',
     'Register',
     'POS',
     'Home',
@@ -38,6 +40,11 @@ angular.module('BasicHttpAuthExample', [
       .when('/manage', {
         controller: 'ManageController',
         templateUrl: 'modules/manage/views/manage.html'
+      })
+
+      .when('/category', {
+        controller: 'CategoryController',
+        templateUrl: 'modules/category/views/category.html'
       })
 
       .when('/', {

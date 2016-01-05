@@ -12,13 +12,11 @@ exports.index = function(req, res) {
 
 exports.show = function(req, res) {
   Module.selectTable('MENU', function(results){
-
     res.send(results);
   });
 };
 
 exports.insert = function(req, res) {
-  console.log(req.body);
   var _name = req.body.NAME;
   var _price = req.body.PRICE;
   var _cost = req.body.COST;

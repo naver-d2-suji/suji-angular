@@ -25,7 +25,7 @@
     };
     getStoreInfo();
     var getCategories = function(){
-      $http.get('/api/v1.1/category/' + $scope.username).success(function(response){
+      $http.get('/api/v1.1/category').success(function(response){
         $scope.categories = response;
       });
     };
