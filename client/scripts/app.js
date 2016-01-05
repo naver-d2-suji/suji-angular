@@ -2,12 +2,14 @@
 
 // declare modules
 angular.module('Authentication', []);
+angular.module('Manage', []);
 angular.module('Register', []);
 angular.module('POS', []);
 angular.module('Home', []);
 
 angular.module('BasicHttpAuthExample', [
     'Authentication',
+    'Manage',
     'Register',
     'POS',
     'Home',
@@ -32,6 +34,10 @@ angular.module('BasicHttpAuthExample', [
       .when('/pos', {
         controller: 'POSController',
         templateUrl: 'modules/pos/views/pos.html'
+      })
+      .when('/manage', {
+        controller: 'ManageController',
+        templateUrl: 'modules/manage/views/manage.html'
       })
 
       .when('/', {

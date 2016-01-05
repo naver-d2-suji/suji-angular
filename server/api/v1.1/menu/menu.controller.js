@@ -10,6 +10,13 @@ exports.index = function(req, res) {
   });
 };
 
+
+exports.show = function(req, res) {
+  Module.selectTable('MENU', function(results){
+    res.send(results);
+  });
+};
+
 exports.renderInsert = function(req, res) {
   res.render('v1.1/menu/insert', {
     title : 'Insert Menu'
