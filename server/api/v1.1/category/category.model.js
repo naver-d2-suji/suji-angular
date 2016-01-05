@@ -1,0 +1,59 @@
+'use strict';
+var Client = require('mariasql');
+var async = require('async');
+var ERROR = require('../../../components/error.code.js');
+var Module = require('../../../components/api_module.js');
+
+var c = new Client({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  db: 'suji_dev'
+});
+
+exports.selectCategoryTable = function(_username, callback){
+  c.query('SELECT NAME FROM CATEGORY WHERE USERNAME=:username',
+    {username : _username}, function(err, rows){
+      if(err) throw(err);
+      callback(rows);
+    });
+  c.end();
+};
+
+exports.insertCategory = function(datas, callback){
+  var _name = datas[0];
+
+  async.waterfall([
+    function(callback){
+      Module.checkExistsRows('CATEGORY', 'NAME', _name, function(isDuplicate){
+        if(isDuplicate) callback(true, ERROR.DUPLICATE);
+        else callback(null, isDuplicate);
+      });
+    },
+    function(isDuplicate, callback) {
+      insertData(datas, function (success) {
+        if(!success) callback(true, ERROR.INSERT_CATEGORY);
+        else callback(null, success);
+      });
+    }],
+    function(err, results){
+      if(err) callback(results);
+      else callback(results);
+    }
+  );
+};
+
+function insertData(datas, callback){
+  var _name = datas[0];
+  var _username = datas[1];
+  var isSuccess = false;
+
+  c.query('INSERT INTO CATEGORY(NAME, USERNAME) VALUES(:name, :username)', { name:_name, username:_username }, function(err, row){
+      if(err) throw(err);
+      if(row.info.affectedRows == 1){
+        isSuccess = true;
+      }
+      callback(isSuccess);
+    });
+  c.end();
+}

@@ -11,7 +11,6 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-
     // Generate DB, Tables automatically
     shell: {
       options: {
@@ -20,26 +19,14 @@ module.exports = function (grunt) {
         failOnError: true
       },
       create_db :{
-        command : 'mysql -u root < resources/v1.1/createDB.sql'
+        command : 'mysql -u root < server/resources/v1.1/createDB.sql'
       },
       crete_table : {
-        command : 'mysql -u root suji_dev < resources/v1.1/createSchema.sql'
+        command : 'mysql -u root suji_dev < server/resources/v1.1/createSchema.sql'
       },
       insert_date : {
-        command : 'mysql -u root suji_dev < resources/v1.1/insertData.sql'
-      },
-
-
-      // for v1 -> to be deleted
-      create_db_for_v1 :{
-        command : 'mysql -u root < resources/v1/createDB.sql'
-      },
-      crete_table_for_v1 : {
-        command : 'mysql -u root suji_dev_v1 < resources/v1/createTable.sql'
-      },
-      insert_objects : {
-        command : 'mysql -u root suji_dev_v1 < resources/v1/insertObjects.sql'
-       }
+        command : 'mysql -u root suji_dev < server/resources/v1.1/insertData.sql'
+      }
     },
 
     /////////////////////
@@ -51,12 +38,12 @@ module.exports = function (grunt) {
           quiet: false,
           clearRequireCache: false
         },
-        src: ['routes/**/*.spec.js']
+        src: ['server/**/*.spec.js']
       }
     },
     develop: {
       server: {
-        file: 'bin/www'
+        file: 'server/app.js'
       }
     },
     open: {
@@ -71,11 +58,8 @@ module.exports = function (grunt) {
       },
       server: {
         files: [
-          'bin/www',
-          'app.js',
-          'components/**/*.js',
-          'routes/**/*.js',
-          'views/**/*.ejs'
+          'server/**/*.js',
+          'server/**/*.ejs'
         ],
         tasks: ['develop', 'delayed-livereload']
       },
@@ -134,7 +118,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('serve', [
     'shell',
-    'mochaTest',
+    //'mochaTest',
     'develop',
     'open',
     'watch'
