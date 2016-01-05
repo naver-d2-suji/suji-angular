@@ -3,28 +3,40 @@
 var myApp = angular.module('Manage', []);
 
 // MANAGE VIEW
-myApp.controller('ManageController', ['$scope', '$http',  function($scope, $http) {
+myApp.controller('ManageController', ['$scope', '$http', '$rootScope',  function($scope, $http, $rootScope) {
 
+  $scope.now = new Date();
+  $scope.username = $rootScope.globals.currentUser.username;
 	$scope.logOut = function() {
-	}
+	};
 
 	var validate = function() {
-		if (($scope.item.title === "") || ($scope.item.author === "") || isNaN($scope.item.price))
+		if (($scope.item.NAME === "") || ($scope.item.PRICE === "") || ($scope.item.COST === ""))
 			return false;
-
-		if (isNaN($scope.item.stock)) $scope.item.stock = 0;
-		if ($scope.item.category === "") $scope.item.category = "None";
+		if ($scope.item.CATEGOTY_NAME === "") $scope.item.category = "None";
 
 		return true;
 	};
 
+    var getStoreInfo = function(){
+      $http.get('/api/v1.1/user/store/' + $scope.username).success(function(response) {
+        $scope.store = response;
+      });
+    };
+    getStoreInfo();
+  var getCategories = function(){
+      $http.get('/api/v1.1/category/' + $scope.username).success(function(response){
+        $scope.categories = response;
+      });
+    };
+  getCategories();
+
 	var clear = function() {
-		$scope.item = {title: "",
-						author: "",
-						price: NaN,
-						stock: NaN,
-						category: "",
-						taxable: false};
+		$scope.item = {NAME: "",
+						PRICE: "",
+						COST: "",
+						CATEGOTY_NAME: "",
+						TAX_MODE: false};
 	};
 
 	var refresh = function() {
@@ -46,15 +58,15 @@ myApp.controller('ManageController', ['$scope', '$http',  function($scope, $http
 		clear();
 	};
 
-	$scope.removeItem = function(id) {
-		$http.delete('/itemlist/' + id).success(function(response) {
+	$scope.removeItem = function(name) {
+		$http.post('/api/v1.1/menu/delete', name).success(function(response) {
 			if (response) console.log(response);
 			refresh();
 		});
 	};
 
-	$scope.editItem = function(id) {
-		$http.get('/itemlist/' + id).success(function(response) {
+	$scope.editItem = function(item) {
+		$http.get('/api/v1.1/menu/' + item.NAME).success(function(response) {
 			$scope.item = response;
 		});
 	};

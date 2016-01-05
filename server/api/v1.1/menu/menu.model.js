@@ -12,8 +12,8 @@ var c = new Client({
 });
 
 exports.selectMenuTable = function(_category, callback){
-  c.query('SELECT NAME FROM MENU WHERE CATEGORY_NAME=:category',
-    {category : _category}, function(err, rows){
+  c.query('SELECT * FROM MENU WHERE NAME=:name',
+    {name : _name}, function(err, rows){
       if(err) throw(err);
       callback(rows);
     });

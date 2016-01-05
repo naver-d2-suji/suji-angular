@@ -4,12 +4,11 @@ var ERROR = require('../../../components/error.code.js');
 var Module = require('../../../components/api_module.js');
 
 exports.index = function(req, res) {
-  var _category = req.params.category;
-  db.selectMenuTable(_category, function(results){
+  var _name = req.params.name;
+  db.selectMenuTable(_name, function(results){
     res.send(results);
   });
 };
-
 
 exports.show = function(req, res) {
   Module.selectTable('MENU', function(results){
@@ -17,19 +16,19 @@ exports.show = function(req, res) {
   });
 };
 
-exports.renderInsert = function(req, res) {
-  res.render('v1.1/menu/insert', {
-    title : 'Insert Menu'
-  });
-};
-
 exports.insert = function(req, res) {
-  var _name = req.body.name;
-  var _price = req.body.price;
-  var _cost = req.body.cost;
-  var _tax_mode = req.body.tax_mode;
-  var _barcode = req.body.barcode;
-  var _category_name = req.body.category_name;
+  console.log(req.body);
+  var _name = req.body.NAME;
+  var _price = req.body.PRICE;
+  var _cost = req.body.COST;
+  if(req.body.TAX_MODE == 'false') {
+    var _tax_mode = 0;
+  } else {
+    var _tax_mode = 1;
+  }
+
+  var _barcode = req.body.BARCODE;
+  var _category_name = req.body.CATEGORY_NAME;
   var datas = [_name, _price, _cost, _tax_mode, _barcode, _category_name];
 
   db.insertMenu(datas, function(isSuccess){
@@ -51,7 +50,7 @@ exports.insert = function(req, res) {
 };
 
 exports.delete = function(req, res){
-  var _name = req.body.name;
+  var _name = req.body.NAME;
   var datas = [_name];
 
   db.deleteMenu(datas, function(isSuccess){
