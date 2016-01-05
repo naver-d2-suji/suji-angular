@@ -6,6 +6,6 @@ var router = express.Router();
 router.get('/', controller.show);
 router.post('/insert', controller.insert);
 router.post('/delete', controller.delete);
-router.get('/:name', controller.index);
+router.get('/:category', controller.index);
 
 module.exports = router;

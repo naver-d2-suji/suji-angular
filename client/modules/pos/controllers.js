@@ -22,19 +22,24 @@ angular.module('POS')
     };
     getCategories();
 
+    var getAllMenu = function(){
+      $http.get('/api/v1.1/menu/').success(function(response){
+        $scope.menus = response;
+      });
+    };
+    getAllMenu();
+
     var getMenuOnCategory = function(category){
       $http.get('/api/v1.1/menu/' + category).success(function(response){
-        $scope.menus = response;
+        $scope.menuCategory = response;
       });
     };
 
 
 
-
-
   $scope.food = {
     pizza       : {count: 1, id:2, detail: "Brick Oven Pizza", price: 15},
-    donut       : {count: 3, id:3, detail: "Glazed Donut",price: 8},
+    donut       : {count: 1, id:3, detail: "Glazed Donut",price: 8},
     tortilla    : {count: 1, id:4, detail: "Tortilla Chips",price: 3},
     burger      : {count: 1, id:5, detail: "Burger",price: 3},
     samosa      : {count: 1, id:6, detail: "Delicious Samosas",price: 3},
@@ -55,22 +60,21 @@ angular.module('POS')
   }
 
   $scope.add = function(item) {
-
     $scope.orderedItemCnt = 1;
     var foodItem = {
       orderedItemCnt : 1,
-      totalPrice : item.price,
-      itemId : item.id,
+      totalPrice : item.PRICE,
+      itemId : item.NAME,
       id : $scope.itemsCnt,
       item : item
     };
 
     // Find if the item is already in Cart
-    var cartItems = $.grep($scope.order, function(e){ return e.itemId == item.id; });
+    var cartItems = $.grep($scope.order, function(e){ return e.itemId == item.NAME; });
 
     if(cartItems.length > 0  && !isEmpty($scope.order)){
       cartItems[0].orderedItemCnt = ++ cartItems[0].orderedItemCnt;
-      cartItems[0].totalPrice = item.price * cartItems[0].orderedItemCnt;
+      cartItems[0].totalPrice = item.PRICE * cartItems[0].orderedItemCnt;
     }
     else{
       $scope.order.push(foodItem);
@@ -90,7 +94,7 @@ angular.module('POS')
 
   $scope.addItem = function(item, index) {
     item.orderedItemCnt = ++ item.orderedItemCnt;
-    item.totalPrice = item.item.price * item.orderedItemCnt;
+    item.totalPrice = item.item.PRICE * item.orderedItemCnt;
   };
 
 
@@ -98,7 +102,7 @@ angular.module('POS')
   {
     if (item.orderedItemCnt > 1) {
       item.orderedItemCnt = -- item.orderedItemCnt;
-      item.totalPrice = item.item.price * item.orderedItemCnt;
+      item.totalPrice = item.item.PRICE * item.orderedItemCnt;
     }
     else{
       $scope.isDisabled = true;

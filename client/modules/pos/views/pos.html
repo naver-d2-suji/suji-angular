@@ -18,12 +18,11 @@
           <div class="box">
             <div class="text-info">{{category.NAME}}</div>
             <hr>
-           <div {{getMenuOnCategory(category.NAME)}}>
-             <div ng-repeat="menu in menus">
-               {{menu.NAME}}
-             </div>
-           </div>
-            </div>
+
+            <button ng-repeat="one in menus" class="buttons btn btn-primary" ng-click="add(one)">{{one.NAME}}</button>
+
+
+          </div>
         </div>
 
 
@@ -65,7 +64,7 @@
             </div>
             <ul class="list-group">
               <li class="list-group-item" ng-repeat="item in order">
-                <span> {{item.item.detail}}</span>
+                <span> {{item.item.NAME}}</span>
 
                 <div class="btn-group pull-right" role="group" aria-label="...">
                   <button type="button" class="btn btn-xs " ng-disabled="" ng-click="subtractItem(item, $index)">

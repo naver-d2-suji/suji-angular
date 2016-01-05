@@ -4,14 +4,15 @@ var ERROR = require('../../../components/error.code.js');
 var Module = require('../../../components/api_module.js');
 
 exports.index = function(req, res) {
-  var _name = req.params.name;
-  db.selectMenuTable(_name, function(results){
+  var _category = req.params.category;
+  db.selectMenuTable(_category, function(results){
     res.send(results);
   });
 };
 
 exports.show = function(req, res) {
   Module.selectTable('MENU', function(results){
+
     res.send(results);
   });
 };
