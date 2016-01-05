@@ -21,3 +21,4 @@
 | Feature |	Method	| Request URL | Todo Status |
 | :------------ |	:-------:	| :-----------------| :--------: |
 | 회원가입 |	POST	| /api/v1.1/user/register | complete |
+| 로그인 |	GET	| /api/v1.1/user/login | complete |
