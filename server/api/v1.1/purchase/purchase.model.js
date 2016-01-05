@@ -92,12 +92,13 @@ function deleteData(datas, callback){
 function addData(datas, callback){
   var _name = datas[0];
   var _quantity = datas[1];
-  var _purchase_time = datas[2];
+  var _total_price = datas[2];
+  var _purchase_time = datas[3];
   var isSuccess = false;
 
   if(!_purchase_time){
-    var query = 'INSERT INTO PURCHASE(NAME, QUANTITY) VALUES(:name, :quantity)';
-    c.query(query, {name : _name, quantity : _quantity}, function(err, row){
+    var query = 'INSERT INTO PURCHASE(NAME, QUANTITY, TOTAL_PRICE) VALUES(:name, :quantity, :totalPrice)';
+    c.query(query, {name : _name, quantity : _quantity, totalPrice : _total_price}, function(err, row){
       if(err) throw(err);
       if(row.info.affectedRows == 1){
         isSuccess = true;
@@ -105,8 +106,8 @@ function addData(datas, callback){
       callback(isSuccess);
     });
   } else {
-    var queryWithPurchaseTime = 'INSERT INTO PURCHASE(NAME, QUANTITY, PURCHASE_TIME) VALUES(:name, :quantity, :purchase_time)';
-    c.query(queryWithPurchaseTime, {name : _name, quantity : _quantity, purchase_time: _purchase_time}, function(err, row){
+    var queryWithPurchaseTime = 'INSERT INTO PURCHASE(NAME, QUANTITY, PURCHASE_TIME) VALUES(:name, :quantity, :totalPrice, :purchase_time)';
+    c.query(queryWithPurchaseTime, {name : _name, quantity : _quantity, totalPrice : _total_price, purchase_time: _purchase_time}, function(err, row){
       if(err) throw(err);
       if(row.info.affectedRows == 1){
         isSuccess = true;

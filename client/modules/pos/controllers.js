@@ -29,27 +29,11 @@ angular.module('POS')
     };
     getAllMenu();
 
-    var getMenuOnCategory = function(category){
-      $http.get('/api/v1.1/menu/' + category).success(function(response){
-        $scope.menuCategory = response;
-      });
+    var getMenu = function(category, callback){
+        $http.get('/api/v1.1/menu/' + category).success(function(response){
+          $scope.menu = response;
+        });
     };
-
-
-
-  $scope.food = {
-    pizza       : {count: 1, id:2, detail: "Brick Oven Pizza", price: 15},
-    donut       : {count: 1, id:3, detail: "Glazed Donut",price: 8},
-    tortilla    : {count: 1, id:4, detail: "Tortilla Chips",price: 3},
-    burger      : {count: 1, id:5, detail: "Burger",price: 3},
-    samosa      : {count: 1, id:6, detail: "Delicious Samosas",price: 3},
-    coldcoffee  : {count: 1, id:7, detail: "Cold Coffee",price: 2},
-    hotcoffee   : {count: 1, id:8, detail: "Hot Coffee",price: 2},
-    coke        : {count: 1, id:9, detail: "Coke",price: 2},
-    dietcoke    : {count: 1, id:10, detail: "Diet Coke",price: 2},
-    pepsi       : {count: 1, id:11, detail: "Pepsi",price: 2}
-  };
-
 
   $scope.itemsCnt = 1;
   $scope.order = [];
@@ -109,14 +93,19 @@ angular.module('POS')
       // isDisabled = false;
       // $("#SubstractItemBtn").prop("disabled", true);
     }
-  }
+  };
 
   $scope.deleteItem = function(index) {
     $scope.order.splice(index, 1);
   };
 
   $scope.checkout = function(index) {
-    alert("Order total: $" + $scope.getSum() + "\n\nPayment received. Thanks.");
+    console.log($scope.order);
+
+    $http.post('/api/v1.1/purchase/add', $scope.order).success(function(response) {
+        if (response) console.log(response);
+        alert("Order total: $" + $scope.getSum() + "\n\nPayment received. Thanks.");
+      });
   };
 
   $scope.clearOrder = function() {

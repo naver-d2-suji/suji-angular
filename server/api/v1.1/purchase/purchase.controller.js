@@ -16,13 +16,47 @@ exports.renderAdd = function(req, res) {
 };
 
 exports.add = function(req, res) {
-  var _name = req.body.name;
-  var _quantity = req.body.quantity;
+  console.log('add', req.body);
+  var result = false;
+
+  req.body.forEach(function(eachItem){
+    var _name = eachItem.itemId;
+    var _quantity = eachItem.orderedItemCnt;
+    var _total_price = eachItem.totalPrice;
+    var _purchase_time = eachItem.purchase_time;
+    var datas = [_name, _quantity, _total_price, _purchase_time];
+
+
+    db.addPurchase(datas, function(isSuccess){
+      switch(isSuccess){
+        case true:
+          result = true;
+          break;
+        case ERROR.NO_NAME_IN_MENU:
+          result = false;
+          break;
+        case ERROR.ADD_PURCHASE:
+          result = false;
+          break;
+      }
+    });
+  });
+
+  if(result == true) {
+    res.redirect('/');
+  } else {
+    res.send('<script>alert("Error! Add PURCHASE Error");history.back();</script>');
+  }
+ /*
+
+  var _name = req.body.itemId;
+  var _quantity = req.body.orderedItemCnt;
+  var _total_price = req.body.totalPrice;
   var _purchase_time = req.body.purchase_time;
-  var datas = [_name, _quantity, _purchase_time];
+  var datas = [_name, _quantity, _total_price, _purchase_time];
 
   db.addPurchase(datas, function(isSuccess){
-    switch(isSuccess){
+    switch(isSucdcess){
       case true:
         res.redirect('/');
         break;
@@ -34,6 +68,8 @@ exports.add = function(req, res) {
         break;
     }
   });
+
+  */
 };
 
 exports.delete = function(req, res){
