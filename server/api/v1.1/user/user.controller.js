@@ -25,7 +25,7 @@ exports.register = function(req, res) {
   var _storeAddress = req.body.storeAddress;
   var datas = [_username, _password, _storeName, _storeAddress];
 
- db.registerUser(datas, function(isSuccess){
+  db.registerUser(datas, function(isSuccess){
     switch(isSuccess){
       case true:
         res.redirect('/');

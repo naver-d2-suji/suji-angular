@@ -1,4 +1,5 @@
 'use strict';
+
 var Client = require('mariasql');
 var async = require('async');
 

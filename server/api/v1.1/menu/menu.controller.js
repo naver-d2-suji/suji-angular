@@ -1,4 +1,5 @@
 'use strict';
+
 var db = require('./menu.model.js');
 var ERROR = require('../../../components/error.code.js');
 var Module = require('../../../components/api_module.js');

@@ -1,4 +1,5 @@
 'use strict';
+
 var express = require('express');
 var controller = require('./category.controller.js');
 var router = express.Router();

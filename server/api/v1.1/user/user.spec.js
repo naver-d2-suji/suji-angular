@@ -1,9 +1,8 @@
 'use strict';
+
 var app = require('../../../app');
 var request = require('supertest');
 var should = require('should');
-
-
 
 describe('POST /api/v1.1/user/register', function() {
   it('should respond success', function(done) {

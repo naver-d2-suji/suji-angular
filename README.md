@@ -20,3 +20,18 @@
 | :------------ |	:-------:	| :-----------------| :--------: |
 | 회원가입 |	POST	| /api/v1.1/user/register | complete |
 | 로그인 |	GET	| /api/v1.1/user/login | complete |
+| 카테고리 목록 |	GET	| /api/v1.1/category | complete |
+| 카테고리 추가 |	POST	| /api/v1.1/category/insert | complete |
+| 카테고리별 메뉴 목록 |	GET	| /api/v1.1/menu/:category | complete |
+| 메뉴 목록 |	GET	| /api/v1.1/menu | complete |
+| 메뉴 추가 |	POST	| /api/v1.1/menu/insert | complete |
+| 메뉴 삭제 |	POST	| /api/v1.1/menu/delete | complete |
+| 구매 목록 |	GET	| /api/v1.1/purchase | complete |
+| 구매 리스트 추가 |	POST	| /api/v1.1/purchase/add | complete |
+| 구매 리스트 삭제 |	POST	| /api/v1.1/purchase/delete | complete |
+
+
+
+## 사용한 오픈소스 이름과 홈페이지 목록
+- [Point of Sale Interface using AngularJS](http://codepen.io/fatihbs/pen/HufEx)
+- [AngularJS Basic HTTP Authentication Example](http://jasonwatmore.com/post/2014/05/26/AngularJS-Basic-HTTP-Authentication-Example.aspx)

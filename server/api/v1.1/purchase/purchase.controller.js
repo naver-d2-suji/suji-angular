@@ -1,4 +1,5 @@
 'use strict';
+
 var db = require('./purchase.model.js');
 var ERROR = require('../../../components/error.code.js');
 var Module = require('../../../components/api_module.js');
@@ -19,7 +20,6 @@ exports.add = function(req, res) {
     var _purchase_time = eachItem.purchase_time;
     var datas = [_name, _quantity, _total_price, _purchase_time];
 
-
     db.addPurchase(datas, function(isSuccess){
       switch(isSuccess){
         case true:
@@ -34,7 +34,6 @@ exports.add = function(req, res) {
       }
     });
   });
-
   if(result == true) {
     res.redirect('/');
   } else {

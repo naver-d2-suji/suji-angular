@@ -1,4 +1,5 @@
 'use strict';
+
 var Client = require('mariasql');
 var async = require('async');
 var ERROR = require('../../../components/error.code.js');
@@ -15,18 +16,18 @@ exports.addPurchase = function(datas, callback){
   var _name = datas[0];
 
   async.waterfall([
-    function(callback){
-      Module.checkExistsRows('MENU', 'NAME', _name, function(isName){
-        if(!isName) callback(true, ERROR.NO_NAME_IN_MENU);
-        else callback(null, isName);
-      });
-    },
-    function(isName, callback) {
-      addData(datas, function (success) {
-        if(!success) callback(true, ERROR.ADD_PURCHASE);
-        else callback(null, success);
-      });
-    }],
+      function(callback){
+        Module.checkExistsRows('MENU', 'NAME', _name, function(isName){
+          if(!isName) callback(true, ERROR.NO_NAME_IN_MENU);
+          else callback(null, isName);
+        });
+      },
+      function(isName, callback) {
+        addData(datas, function (success) {
+          if(!success) callback(true, ERROR.ADD_PURCHASE);
+          else callback(null, success);
+        });
+      }],
     function(err, results){
       if(err) callback(results);
       else callback(results);
@@ -36,18 +37,18 @@ exports.addPurchase = function(datas, callback){
 
 exports.deletePurchase = function(datas, callback){
   async.waterfall([
-    function(callback){
-      checkExistInPurchase(datas, function(isExist){
-        if(!isExist) callback(true, ERROR.NO_DATA_IN_PURCHASE);
-        else callback(null, isExist);
-      });
-    },
-    function(isExist, callback){
-      deleteData(datas, function(success){
-        if(!success) callback(true, ERROR.DELETE_PURCHASE);
-        else callback(null, success);
-      });
-    }],
+      function(callback){
+        checkExistInPurchase(datas, function(isExist){
+          if(!isExist) callback(true, ERROR.NO_DATA_IN_PURCHASE);
+          else callback(null, isExist);
+        });
+      },
+      function(isExist, callback){
+        deleteData(datas, function(success){
+          if(!success) callback(true, ERROR.DELETE_PURCHASE);
+          else callback(null, success);
+        });
+      }],
     function(err, results){
       if(err) callback(results);
       else callback(results);
@@ -64,11 +65,11 @@ function checkExistInPurchase(datas, callback){
   var queryString = 'SELECT EXISTS(SELECT 1 FROM PURCHASE WHERE NAME=:name AND QUANTITY=:quantity AND PURCHASE_TIME=:purchase_time) AS checkResult';
   c.query(queryString,
     { name : _name, quantity:_quantity, purchase_time : _purchase_time}, function(err, row){
-    if (err) throw err;
-    if (row[0].checkResult == 1) //0 : not duplicate, 1 : duplicate
-      isExist = true;
-    callback(isExist);
-  });
+      if (err) throw err;
+      if (row[0].checkResult == 1) //0 : not duplicate, 1 : duplicate
+        isExist = true;
+      callback(isExist);
+    });
   c.end();
 };
 
@@ -80,12 +81,12 @@ function deleteData(datas, callback){
 
   c.query('DELETE FROM PURCHASE WHERE NAME = :name AND QUANTITY = :quantity AND PURCHASE_TIME = :purchase_time',
     { name : _name, quantity : _quantity, purchase_time : _purchase_time}, function(err, row){
-    if(err) throw(err);
-    if(row.info.affectedRows == 1){
-      isSuccess = true;
-    }
-    callback(isSuccess);
-  });
+      if(err) throw(err);
+      if(row.info.affectedRows == 1){
+        isSuccess = true;
+      }
+      callback(isSuccess);
+    });
   c.end();
 }
 

@@ -1,4 +1,5 @@
 'use strict';
+
 var Client = require('mariasql');
 var async = require('async');
 var ERROR = require('../../../components/error.code.js');
@@ -31,18 +32,18 @@ exports.registerUser = function(datas, callback){
   var _username = datas[0];
 
   async.waterfall([
-    function(callback){
-      Module.checkExistsRows('USER', 'USERNAME', _username, function(isExist){
-        if(isExist) callback(true, ERROR.DUPLICATE_USER);
-        else callback(null, isExist);
-      });
-    },
-    function(isName, callback) {
-      insertData(datas, function (success) {
-        if(!success) callback(true, ERROR.INSERT_USER);
-        else callback(null, success);
-      });
-    }],
+      function(callback){
+        Module.checkExistsRows('USER', 'USERNAME', _username, function(isExist){
+          if(isExist) callback(true, ERROR.DUPLICATE_USER);
+          else callback(null, isExist);
+        });
+      },
+      function(isName, callback) {
+        insertData(datas, function (success) {
+          if(!success) callback(true, ERROR.INSERT_USER);
+          else callback(null, success);
+        });
+      }],
     function(err, results){
       if(err) callback(results);
       else callback(results);

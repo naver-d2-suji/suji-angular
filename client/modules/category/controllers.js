@@ -2,19 +2,16 @@
 
   var myApp = angular.module('Category', []);
 
-
   myApp.controller('CategoryController', ['$scope', '$http', '$rootScope',  function($scope, $http, $rootScope) {
     $scope.now = new Date();
     $scope.username = $rootScope.globals.currentUser.username;
 
-    $scope.logOut = function() {
-    };
     var validate = function() {
-      if (($scope.item.NAME === "") )
+      if ($scope.item.NAME === "")
         return false;
-
       return true;
     };
+
     var getStoreInfo = function(){
       $http.get('/api/v1.1/user/store/' + $scope.username).success(function(response) {
         $scope.store = response;
@@ -40,6 +37,7 @@
 
       $http.post('/api/v1.1/category/insert', $scope.item).then(
         function successCallback(response) {
+          console.log(response);
           refresh();
         }, function errorCallback(response){
           console.log(response);
@@ -55,7 +53,5 @@
         refresh();
       });
     };
-
   }]);
-
 })();

@@ -2,11 +2,8 @@
 
 angular.module('Home')
 
-.controller('HomeController',
+  .controller('HomeController',
     ['$scope','$rootScope',
       function ($scope, $rootScope) {
         $scope.username = $rootScope.globals.currentUser.username;
-
-
-
-    }]);
+      }]);

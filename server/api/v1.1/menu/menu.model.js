@@ -1,4 +1,5 @@
 'use strict';
+
 var Client = require('mariasql');
 var async = require('async');
 var ERROR = require('../../../components/error.code.js');
@@ -18,7 +19,7 @@ exports.selectMenuByCategory = function(callback){
     if(err) throw(err);
     async.each(rows,
       function(row, callbackEach){
-        c.query('SELECT * FROM MENU WHERE CATEGORY_NAME=:category',
+        c.query('SELECT * FROM MENU WHERE CATEGORY_NAME=:category ORDER BY NAME ASC',
           { category: row.NAME }, function(err, results){
             if(err) throw(err);
             row['MENU'] = results;
@@ -49,24 +50,24 @@ exports.insertMenu = function(datas, callback){
   var _category_name = datas[5];
 
   async.waterfall([
-    function(callback){
-      Module.checkExistsRows('CATEGORY', 'NAME', _category_name, function(isName){
-        if(!isName) callback(true, ERROR.NO_NAME_IN_CATEGORY);
-        else callback(null, isName);
-      });
-    },
-    function(isName, callback){
-      checkMenu('MENU', 'NAME', _name, 'CATEGORY_NAME', _category_name, function(isDuplicate){
-        if(isDuplicate) callback(true, ERROR.DUPLICATE);
-        else callback(null, isDuplicate);
-      });
-    },
-    function(isDuplicate, callback) {
-      insertData(datas, function (success) {
-        if(!success) callback(true, ERROR.INSERT_MENU);
-        else callback(null, success);
-      });
-    }],
+      function(callback){
+        Module.checkExistsRows('CATEGORY', 'NAME', _category_name, function(isName){
+          if(!isName) callback(true, ERROR.NO_NAME_IN_CATEGORY);
+          else callback(null, isName);
+        });
+      },
+      function(isName, callback){
+        checkMenu('MENU', 'NAME', _name, 'CATEGORY_NAME', _category_name, function(isDuplicate){
+          if(isDuplicate) callback(true, ERROR.DUPLICATE);
+          else callback(null, isDuplicate);
+        });
+      },
+      function(isDuplicate, callback) {
+        insertData(datas, function (success) {
+          if(!success) callback(true, ERROR.INSERT_MENU);
+          else callback(null, success);
+        });
+      }],
     function(err, results){
       if(err) callback(results);
       else callback(results);
@@ -92,18 +93,18 @@ exports.deleteMenu = function(datas, callback){
   console.log(datas);
 
   async.waterfall([
-    function(callback){
-      Module.checkExistsRows('MENU', 'NAME', _name, function(isName){
-        if(!isName) callback(true, ERROR.NO_NAME_IN_MENU);
-        else callback(null, isName);
-      });
-    },
-    function(isName, callback){
-      deleteData(datas, function(success){
-        if(!success) callback(true, ERROR.DELETE_MENU);
-        else callback(null, success);
-      });
-    }],
+      function(callback){
+        Module.checkExistsRows('MENU', 'NAME', _name, function(isName){
+          if(!isName) callback(true, ERROR.NO_NAME_IN_MENU);
+          else callback(null, isName);
+        });
+      },
+      function(isName, callback){
+        deleteData(datas, function(success){
+          if(!success) callback(true, ERROR.DELETE_MENU);
+          else callback(null, success);
+        });
+      }],
     function(err, results){
       if(err) callback(results);
       else callback(results);

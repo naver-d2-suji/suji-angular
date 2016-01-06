@@ -4,11 +4,8 @@
 
 // MANAGE VIEW
   myApp.controller('ManageController', ['$scope', '$http', '$rootScope',  function($scope, $http, $rootScope) {
-
     $scope.now = new Date();
     $scope.username = $rootScope.globals.currentUser.username;
-    $scope.logOut = function() {
-    };
 
     var validate = function() {
       if (($scope.item.NAME === "") || ($scope.item.PRICE === "") || ($scope.item.COST === ""))
@@ -24,6 +21,7 @@
       });
     };
     getStoreInfo();
+
     var getCategories = function(){
       $http.get('/api/v1.1/category').success(function(response){
         $scope.categories = response;
@@ -73,23 +71,5 @@
       );
       clear();
     };
-
-    /*
-     $scope.editItem = function(item) {
-     $http.get('/api/v1.1/menu/' + item.NAME).success(function(response) {
-     $scope.item = response;
-     });
-     };
-
-     $scope.update = function() {
-     if (!validate()) return;
-
-     $http.put('/itemlist/' + $scope.item._id, $scope.item).success(function(response) {
-     refresh();
-     });
-     clear();
-     };
-     */
   }]);
-
 })();
