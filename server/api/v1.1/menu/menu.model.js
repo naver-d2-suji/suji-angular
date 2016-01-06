@@ -11,9 +11,33 @@ var c = new Client({
   db: 'suji_dev'
 });
 
-exports.selectMenuTable = function(_cateogry, callback){
+exports.selectMenuByCategory = function(callback){
+  var output = [];
+
+  c.query('SELECT NAME FROM CATEGORY', function(err, rows){
+    if(err) throw(err);
+    async.each(rows,
+      function(row, callbackEach){
+        c.query('SELECT * FROM MENU WHERE CATEGORY_NAME=:category',
+          { category: row.NAME }, function(err, results){
+            if(err) throw(err);
+            row['MENU'] = results;
+            output.push(row);
+            callbackEach();
+          });
+      },
+      function(err){
+        if(err) throw(err);
+        c.end();
+        callback(output);
+      }
+    )
+  });
+};
+
+exports.selectMenuTable = function(_category, callback){
   c.query('SELECT * FROM MENU WHERE CATEGORY_NAME=:category',
-    {category : _cateogry}, function(err, rows){
+    {category : _category}, function(err, rows){
       if(err) throw(err);
       callback(rows);
     });

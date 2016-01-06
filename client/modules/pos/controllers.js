@@ -30,10 +30,11 @@ angular.module('POS')
     getAllMenu();
 
     var getMenu = function(category, callback){
-        $http.get('/api/v1.1/menu/' + category).success(function(response){
+        $http.get('/api/v1.1/menu/test').success(function(response){
           $scope.menu = response;
         });
     };
+    getMenu();
 
   $scope.itemsCnt = 1;
   $scope.order = [];
@@ -112,4 +113,3 @@ angular.module('POS')
     $scope.order = [];
   };
 }]);
-

@@ -3,6 +3,12 @@ var db = require('./menu.model.js');
 var ERROR = require('../../../components/error.code.js');
 var Module = require('../../../components/api_module.js');
 
+exports.test = function(req, res){
+  db.selectMenuByCategory(function(results) {
+    res.send(results);
+  });
+};
+
 exports.index = function(req, res) {
   var _category = req.params.category;
   db.selectMenuTable(_category, function(results){
