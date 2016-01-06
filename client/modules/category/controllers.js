@@ -38,10 +38,14 @@
     $scope.addItem = function() {
       if (!validate()) return;
 
-      $http.post('/api/v1.1/category/insert', $scope.item).success(function(response) {
-        if (response) console.log(response);
-        refresh();
-      });
+      $http.post('/api/v1.1/category/insert', $scope.item).then(
+        function successCallback(response) {
+          refresh();
+        }, function errorCallback(response){
+          console.log(response);
+          alert(response.data.message);
+        }
+      );
       clear();
     };
 

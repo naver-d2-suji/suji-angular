@@ -51,18 +51,27 @@
     $scope.addItem = function() {
       if (!validate()) return;
 
-      $http.post('/api/v1.1/menu/insert', $scope.item).success(function(response) {
-        if (response) console.log(response);
-        refresh();
-      });
+      $http.post('/api/v1.1/menu/insert', $scope.item).then(
+         function successCallback(response) {
+          console.log(response);
+          refresh();
+        }, function errorCallback(response){
+          alert(response.data.message);
+        }
+      );
       clear();
     };
 
     $scope.removeItem = function(name) {
-      $http.post('/api/v1.1/menu/delete', name).success(function(response) {
-        if (response) console.log(response);
-        refresh();
-      });
+      $http.post('/api/v1.1/menu/delete', name).then(
+           function successCallback(response) {
+          console.log(response);
+          refresh();
+        }, function errorCallback(response){
+          alert(response.data.message);
+        }
+      );
+      clear();
     };
 
     /*

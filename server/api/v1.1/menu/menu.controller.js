@@ -3,7 +3,7 @@ var db = require('./menu.model.js');
 var ERROR = require('../../../components/error.code.js');
 var Module = require('../../../components/api_module.js');
 
-exports.test = function(req, res){
+exports.showByCategory = function(req, res){
   db.selectMenuByCategory(function(results) {
     res.send(results);
   });
@@ -17,7 +17,7 @@ exports.index = function(req, res) {
 };
 
 exports.show = function(req, res) {
-  Module.selectTable('MENU', function(results){
+  Module.selectTableOrderBy('MENU', 'CATEGORY_NAME', 'ASC', function(results){
     res.send(results);
   });
 };
@@ -39,16 +39,16 @@ exports.insert = function(req, res) {
   db.insertMenu(datas, function(isSuccess){
     switch(isSuccess){
       case true:
-        res.redirect('/');
+        res.status(200).send({status:'success'});
         break;
       case ERROR.NO_NAME_IN_CATEGORY:
-        res.send('<script>alert("Error! There is no Category name");history.back();</script>');
+        res.status(500).send({status:'error', message : 'Error! Choose a Category'});
         break;
       case ERROR.DUPLICATE:
-        res.send('<script>alert("Error! Duplicate ID");history.back();</script>');
+        res.status(500).send({status:'error', message : 'Error! Already Exists a name'});
         break;
       case ERROR.INSERT_MENU:
-        res.send('<script>alert("Error! Insert Menu Error");history.back();</script>');
+        res.status(500).send({status:'error', message : 'Error! Insert error occurs'});
         break;
     }
   });
@@ -61,13 +61,13 @@ exports.delete = function(req, res){
   db.deleteMenu(datas, function(isSuccess){
     switch(isSuccess){
       case true:
-        res.redirect('/');
+        res.status(200).send({status:'success'});
         break;
       case ERROR.NO_NAME_IN_MENU:
-        res.send('<script>alert("Error! There is no NAME in MENU");history.back();</script>');
+        res.status(500).send({status:'error', message : 'Error! There is no Name in Category'});
         break;
       case ERROR.DELETE_MENU:
-        res.send('<script>alert("Error! Delete MENU Error");history.back();</script>');
+        res.status(500).send({status:'error', message : 'Error! Delete error occurs'});
         break;
     }
   });

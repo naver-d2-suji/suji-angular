@@ -1,5 +1,6 @@
 'use strict';
 
+
 // declare modules
 angular.module('Authentication', []);
 angular.module('Manage', []);

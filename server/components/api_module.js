@@ -31,3 +31,19 @@ exports.selectTable = function(_table, callback){
   });
   c.end();
 };
+
+exports.selectTableOrderBy = function(_table, _column, _order, callback){
+  if(_order == 'ASC'){
+    var queryString = 'SELECT * FROM ' + _table + ' ORDER BY ' + _column + ' ASC' ;
+  } else if(_order == 'DESC') {
+    var queryString = 'SELECT * FROM ' + _table + ' ORDER BY ' + _column + ' DESC' ;
+  } else {
+    var queryString = 'SELECT * FROM ' + _table ;
+  }
+  c.query(queryString, function(err, rows){
+    if (err)
+      throw err;
+    callback(rows);
+  });
+  c.end();
+};

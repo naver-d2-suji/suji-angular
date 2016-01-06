@@ -51,14 +51,15 @@ exports.delete = function(req, res){
   db.deletePurchase(datas, function(isSuccess){
     switch(isSuccess){
       case true:
-        res.redirect('/');
+        res.status(200).send({status:'success'});
         break;
       case ERROR.NO_DATA_IN_PURCHASE:
-        res.send('<script>alert("Error! There is no Data in PURCHASE");history.back();</script>');
+        res.status(500).send({status:'error', message : 'Error! There is no purchase data'});
         break;
       case ERROR.DELETE_PURCHASE:
-        res.send('<script>alert("Error! Delete PURCHASE Error");history.back();</script>');
+        res.status(500).send({status:'error', message : 'Error! Purchase delete error occurs'});
         break;
     }
   });
 };
+

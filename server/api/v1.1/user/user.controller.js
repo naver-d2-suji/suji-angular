@@ -31,7 +31,7 @@ exports.register = function(req, res) {
         res.redirect('/');
         break;
       case ERROR.DUPLICATE_USER:
-        res.send('<script>alert("Error! There is already Username in USER");history.back();</script>');
+        res.send('<script>alert("Error! There is already username");history.back();</script>');
         break;
       case ERROR.INSERT_USER:
         res.send('<script>alert("Error! Insert USER Error");history.back();</script>');

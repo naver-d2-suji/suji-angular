@@ -16,13 +16,13 @@ exports.insert = function(req, res) {
   db.insertCategory(datas, function (isSuccess) {
     switch(isSuccess){
       case true:
-        res.redirect('/');
+        res.status(200).send({status:'success'});
         break;
       case ERROR.DUPLICATE:
-        res.send('<script>alert("Error! Duplicate NAME");history.back();</script>');
+        res.status(500).send({status:'error', message : 'Error! Duplicate Category Name'});
         break;
       case ERROR.INSERT_CATEGORY:
-        res.send('<script>alert("Error! Insert Category Error");history.back();</script>');
+        res.status(500).send({status:'error', message : 'Error! Insert Category Error'});
         break;
     }
   });
@@ -35,13 +35,13 @@ exports.delete = function(req, res){
   db.deleteCategory(datas, function(isSuccess){
     switch(isSuccess){
       case true:
-        res.redirect('/');
+        res.status(200).send({status:'success'});
         break;
       case ERROR.NO_NAME_IN_CATEGORY:
-        res.send('<script>alert("Error! There is no NAME in CATEGORY");history.back();</script>');
+        res.status(500).send({status:'error', message : 'Error! There is no NAME'});
         break;
       case ERROR.DELETE_CATEGORY:
-        res.send('<script>alert("Error! Delete Category Error");history.back();</script>');
+        res.status(500).send({status:'error', message : 'Error! Delete Category Error'});
         break;
     }
   });

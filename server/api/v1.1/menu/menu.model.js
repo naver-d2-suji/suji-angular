@@ -56,7 +56,7 @@ exports.insertMenu = function(datas, callback){
       });
     },
     function(isName, callback){
-      Module.checkExistsRows('MENU', 'NAME', _name, function(isDuplicate){
+      checkMenu('MENU', 'NAME', _name, 'CATEGORY_NAME', _category_name, function(isDuplicate){
         if(isDuplicate) callback(true, ERROR.DUPLICATE);
         else callback(null, isDuplicate);
       });
@@ -72,6 +72,19 @@ exports.insertMenu = function(datas, callback){
       else callback(results);
     }
   );
+};
+
+function checkMenu(_table, _column, _toCheck, _column2, _toCheck2, callback){
+  var queryString = 'SELECT EXISTS(SELECT 1 FROM ' + _table + ' WHERE ' + _column + ' = :toCheck AND ' + _column2 + ' = :toCheck2) AS checkResult';
+  var isDuplicate = false;
+
+  c.query(queryString, { toCheck :_toCheck, toCheck2 : _toCheck2}, function(err, row) {
+    if (err) throw err;
+    if (row[0].checkResult == 1) //0 : not duplicate, 1 : duplicate
+      isDuplicate = true;
+    callback(isDuplicate);
+  });
+  c.end();
 };
 
 exports.deleteMenu = function(datas, callback){
