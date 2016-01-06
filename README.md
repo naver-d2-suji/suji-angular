@@ -59,8 +59,10 @@ npm install --global grunt
 
 &nbsp;
 ## 사용한 오픈소스 이름과 홈페이지 목록
-- [Point of Sale Interface using AngularJS](http://codepen.io/fatihbs/pen/HufEx)
-- [AngularJS Basic HTTP Authentication](https://github.com/cornflourblue/angular-authentication-example)
+- client/modules 폴더 내부의 기능들은 아래의 소스코드를 참고했습니다.
+ - [Point of Sale Interface using AngularJS](http://codepen.io/fatihbs/pen/HufEx)
+ - [AngularJS Basic HTTP Authentication](https://github.com/cornflourblue/angular-authentication-example)
+- 그 외 폴더는 직접 작성한 코드입니다.
 
 
 
