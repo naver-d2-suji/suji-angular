@@ -59,7 +59,7 @@ module.exports = function (grunt) {
       server: {
         files: [
           'server/**/*.js',
-          'server/**/*.ejs'
+          'client/**/*.js'
         ],
         tasks: ['develop', 'delayed-livereload']
       },
@@ -118,7 +118,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('serve', [
     'shell',
-    //'mochaTest',
     'develop',
     'open',
     'watch'

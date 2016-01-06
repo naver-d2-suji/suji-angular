@@ -3,7 +3,6 @@ var app = require('../../../app');
 var request = require('supertest');
 var should = require('should');
 
-/*
 describe('GET /api/v1.1/category', function() {
   it('should respond with JSON array', function(done) {
     request(app)
@@ -18,12 +17,12 @@ describe('GET /api/v1.1/category', function() {
   });
 });
 
-describe('GET /api/v1.1/category/insert', function() {
-  it('should respond with text/html', function(done) {
+describe('POST /api/v1.1/category/insert', function() {
+  it('should respond', function(done) {
     request(app)
-      .get('/api/v1.1/category/insert')
-      .expect(200)
-      .expect('Content-Type', "text/html; charset=utf-8")
+      .post('/api/v1.1/category/insert')
+      .send({'NAME':'test'})
+      .expect(200) //redirect
       .end(function(err, res) {
         if (err) return done(err);
         res.should.exist;
@@ -32,20 +31,4 @@ describe('GET /api/v1.1/category/insert', function() {
       });
   });
 });
-
-describe('POST /api/v1.1/category/insert', function() {
-  it('should respond with redirect on POST', function(done) {
-    request(app)
-      .post('/api/v1.1/category/insert')
-      .send({'name':'test2'})
-      .expect(302) //redirect
-      .end(function(err, res) {
-        if (err) return done(err);
-        res.should.exist;
-        res.status.should.equal(302);
-        done();
-      });
-  });
-});
-*/
 
