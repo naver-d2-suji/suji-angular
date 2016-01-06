@@ -3,7 +3,7 @@
 # SUJI [![Build Status](https://travis-ci.org/naver-d2-suji/suji.svg)](https://travis-ci.org/naver-d2-suji/suji)
 > 소상공인들이 수지 맞기를 기원하는 웹 기반 오픈소스 POS 시스템
 ![SUJI](https://cloud.githubusercontent.com/assets/7614353/12139794/1329ce44-b4a6-11e5-90a2-dd51d039e01d.png)
-- [소개 영상](https://youtu.be/0mEFdHfyu00)
+- [**소개 영상**](https://youtu.be/0mEFdHfyu00)
 &nbsp;
 
 ## Development Stack
