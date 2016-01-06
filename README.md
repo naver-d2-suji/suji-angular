@@ -19,18 +19,21 @@
 ### Prerequisites
 - 'Node.js' and 'npm' should be installed
 - 'Grunt' should be installed
-  - ```shell
+  ```shell
   npm install --global grunt
+  ```
 - MariaDB should be installed(v10 or more recent). If not pre-installed, check the following instrution here : [Install MariaDB](https://www.vultr.com/docs/install-mariadb-on-ubuntu-14-04)
 
 ### Quick Start
 - [Download the latest version](https://github.com/naver-d2-suji/suji/archive/develop.zip)
 - Install with npm :
- - '''shell
+  ```shell
  npm install
+ ```
 - Run the program :
- - '''shell
+  ```shell
  grunt serve
+ ```
 
 &nbsp;
 ## REST API
