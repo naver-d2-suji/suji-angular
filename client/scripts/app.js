@@ -7,9 +7,11 @@ angular.module('Category', []);
 angular.module('Register', []);
 angular.module('POS', []);
 angular.module('Home', []);
+angular.module('Purchase', []);
 
 angular.module('SUJI', [
     'Authentication',
+    'Purchase',
     'Manage',
     'Category',
     'Register',
@@ -45,6 +47,11 @@ angular.module('SUJI', [
       .when('/category', {
         controller: 'CategoryController',
         templateUrl: 'modules/category/views/category.html'
+      })
+
+      .when('/purchase', {
+        controller: 'PurchaseController',
+        templateUrl: 'modules/purchase/views/purchase.html'
       })
 
       .when('/', {

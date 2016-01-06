@@ -5,7 +5,7 @@ var ERROR = require('../../../components/error.code.js');
 var Module = require('../../../components/api_module.js');
 
 exports.index = function(req, res) {
-  Module.selectTable('PURCHASE', function(results){
+  Module.selectTableOrderBy('PURCHASE', 'PURCHASE_TIME', 'DESC', function(results){
     res.send(results);
   });
 };
@@ -42,10 +42,9 @@ exports.add = function(req, res) {
 };
 
 exports.delete = function(req, res){
-  var _name = req.body.name;
-  var _quantity = req.body.quantity;
-  var _purchase_time = req.body.purchase_time;
-  var datas = [_name, _quantity, _purchase_time];
+  console.log(req.body);
+  var _id = req.body.ID;
+  var datas = [_id];
 
   db.deletePurchase(datas, function(isSuccess){
     switch(isSuccess){

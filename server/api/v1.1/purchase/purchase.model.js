@@ -38,12 +38,6 @@ exports.addPurchase = function(datas, callback){
 exports.deletePurchase = function(datas, callback){
   async.waterfall([
       function(callback){
-        checkExistInPurchase(datas, function(isExist){
-          if(!isExist) callback(true, ERROR.NO_DATA_IN_PURCHASE);
-          else callback(null, isExist);
-        });
-      },
-      function(isExist, callback){
         deleteData(datas, function(success){
           if(!success) callback(true, ERROR.DELETE_PURCHASE);
           else callback(null, success);
@@ -56,31 +50,14 @@ exports.deletePurchase = function(datas, callback){
   );
 };
 
-function checkExistInPurchase(datas, callback){
-  var _name = datas[0];
-  var _quantity = datas[1];
-  var _purchase_time = datas[2];
-  var isExist = false;
-
-  var queryString = 'SELECT EXISTS(SELECT 1 FROM PURCHASE WHERE NAME=:name AND QUANTITY=:quantity AND PURCHASE_TIME=:purchase_time) AS checkResult';
-  c.query(queryString,
-    { name : _name, quantity:_quantity, purchase_time : _purchase_time}, function(err, row){
-      if (err) throw err;
-      if (row[0].checkResult == 1) //0 : not duplicate, 1 : duplicate
-        isExist = true;
-      callback(isExist);
-    });
-  c.end();
-};
 
 function deleteData(datas, callback){
-  var _name = datas[0];
-  var _quantity = datas[1];
-  var _purchase_time = datas[2];
+  var _id = datas[0];
   var isSuccess = false;
+  console.log(_id);
 
-  c.query('DELETE FROM PURCHASE WHERE NAME = :name AND QUANTITY = :quantity AND PURCHASE_TIME = :purchase_time',
-    { name : _name, quantity : _quantity, purchase_time : _purchase_time}, function(err, row){
+  c.query('DELETE FROM PURCHASE WHERE ID = :id',
+    {id : _id}, function(err, row){
       if(err) throw(err);
       if(row.info.affectedRows == 1){
         isSuccess = true;

@@ -1,50 +1,47 @@
 <ul>
   <li><a href="#">Home</a></li>
   <li><a href="#/pos">Start POS</a></li>
-  <li><a class="active" href="#/category">Add Category</a></li>
+  <li><a href="#/category">Add Category</a></li>
   <li><a href="#/manage">Add Menu</a></li>
-  <li><a href="#/purchase">Purchase Log</a></li>
+  <li><a class="active" href="#/purchase">Purchase Log</a></li>
   <ul style="float:right;list-style-type:none;">
     <li><a href="#/login">Logout</a></li>
   </ul>
 </ul>
+
 <!-- manage view -->
 <div class="container">
   <div class="row">
     <div class="col-md-12">
       <div class="jumbotron">
-        <h2><span class="text-warning">Add Category</span> </h2>
+        <h2><span class="text-warning">Purchase Log</span> </h2>
         <span class="pull-right text-muted">Today is {{now | date : 'MMM dd, yyyy'}}</span>
         <div class="text-success">{{store.STORE_NAME}}</div>
-
       </div>
     </div>
   </div>
-
 
   <div class="jumbotron">
     <div class="container">
       <div class="col-xs-offset-2 col-xs-8">
 
-        <div id = "manage" ng-controller = "CategoryController">
+        <div id = "manage" ng-controller = "PurchaseController">
           <table class = "table">
             <thead>
-            <th><div class="text-info">Category Name</div></th>
-            <th><div class="text-info">Action</div></th>
+            <th><div class="text-info">Name</div></th>
+            <th><div class="text-info">Quantity</div></th>
+            <th><div class="text-info">Total Price</div></th>
+            <th><div class="text-info">Purchase Time</div></th>
+            <th>&nbsp;</th>
             </thead>
             <tbody>
-            <tr>
-              <td><input type = "text" class = "form-control" ng-model="item.NAME"></td>
-              <td><button class = "btn btn-primary" ng-click = "addItem()">Add Item</button></td>
-              <!--
-                      <td><button class = "btn btn-info" ng-click = "update()">Update</button></td>
-                      -->
-            </tr>
+
             <tr ng-repeat = "item in itemlist">
               <td>{{item.NAME}}</td>
-              <!--
-                      <td><button class = "btn btn-warning" ng-click = "editItem(item)">Edit</button></td>
-                      -->
+              <td>{{item.QUANTITY}}</td>
+              <td>{{item.TOTAL_PRICE}}</td>
+              <td>{{item.PURCHASE_TIME}}</td>
+              <td><button class = "btn btn-danger" ng-click = "removeItem(item)">Remove</button></td>
             </tr>
             </tbody>
           </table>
