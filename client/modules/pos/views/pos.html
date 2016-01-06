@@ -1,3 +1,16 @@
+
+
+<ul>
+    <li><a href="#">Home</a></li>
+    <li><a class="active" href="#/pos">Start POS</a></li>
+    <li><a href="#/category">Add Category</a></li>
+    <li><a href="#/manage">Add Menu</a></li>
+    <ul style="float:right;list-style-type:none;">
+      <li><a href="#/login">Logout</a></li>
+    </ul>
+  </ul>
+
+
 <div class="container">
   <div class="row">
     <div class="col-md-12">
@@ -38,7 +51,7 @@
               Noting ordered yet !
             </div>
             <ul class="list-group">
-              <li class="list-group-item" ng-repeat="item in order">
+              <li float="clear" class="list-group-item" ng-repeat="item in order">
                 <span> {{item.item.NAME}}</span>
 
                 <div class="btn-group pull-right" role="group" aria-label="...">
