@@ -1,11 +1,12 @@
 'use strict';
 var db = require('./user.model.js');
 var ERROR = require('../../../components/error.code.js');
-var Module = require('../../../components/api_module.js');
+var Crypto = require('../../../components/api_crypto.js');
+
 
 exports.login = function(req, res) {
   var _username = req.body.username;
-  var _password = req.body.password;
+  var _password = Crypto.do_ciper(req.body.password);
   var datas = [_username, _password];
 
   db.checkLogin(datas, function(isSuccess){
@@ -20,7 +21,7 @@ exports.login = function(req, res) {
 
 exports.register = function(req, res) {
   var _username = req.body.username;
-  var _password = req.body.password;
+  var _password = Crypto.do_ciper(req.body.password);
   var _storeName = req.body.storeName;
   var _storeAddress = req.body.storeAddress;
   var datas = [_username, _password, _storeName, _storeAddress];
