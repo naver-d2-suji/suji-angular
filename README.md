@@ -11,7 +11,7 @@
 - Use Modules : async, should, supertest, mocha, jQuery
 - Server : [DigitalOcean](https://www.digitalocean.com/), [nginX](http://nginx.org/)
 - Database : MariaDB
-- Build & Test Tool : [Grunt](www.gruntjs.com/), [Travis CI](https://www.travis-ci.org/)
+- Build & Test Tool : [Grunt](http://gruntjs.com/), [Travis CI](https://travis-ci.com/)
 
 ## REST API
 > REST API Definition
