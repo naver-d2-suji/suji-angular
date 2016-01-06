@@ -34,4 +34,4 @@
 
 ## 사용한 오픈소스 이름과 홈페이지 목록
 - [Point of Sale Interface using AngularJS](http://codepen.io/fatihbs/pen/HufEx)
-- [AngularJS Basic HTTP Authentication Example](http://jasonwatmore.com/post/2014/05/26/AngularJS-Basic-HTTP-Authentication-Example.aspx)
+- [AngularJS Basic HTTP Authentication](https://github.com/cornflourblue/angular-authentication-example)
