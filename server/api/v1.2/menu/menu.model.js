@@ -2,14 +2,14 @@
 
 var Client = require('mariasql');
 var async = require('async');
-var ERROR = require('../../../components/error.code.js');
-var Module = require('../../../components/api_module.js');
+var ERROR = require('../module/error.code.js');
+var Module = require('../module/query.js');
 
 var c = new Client({
   host: 'localhost',
   user: 'root',
   password: '',
-  db: 'suji_dev'
+  db: 'suji_dev_v12'
 });
 
 exports.selectMenuByCategory = function(callback){
@@ -32,7 +32,7 @@ exports.selectMenuByCategory = function(callback){
         c.end();
         callback(output);
       }
-    );
+    )
   });
 };
 
@@ -130,14 +130,14 @@ function deleteData(datas, callback){
 function insertData(datas, callback){
   var _name = datas[0];
   var _price = datas[1];
-  var _cost = datas[2];
+  var _prime_cost = datas[2];
   var _tax_mode = datas[3];
   var _barcode = datas[4];
   var _category_name = datas[5];
   var isSuccess = false;
 
-  c.query('INSERT INTO MENU(NAME, PRICE, COST, TAX_MODE, BARCODE, CATEGORY_NAME) VALUES(:name, :price, :cost, :tax_mode, :barcode, :category_name)',
-    { name : _name, price : _price, cost : _cost, tax_mode : _tax_mode, barcode : _barcode, category_name : _category_name }, function(err, row){
+  c.query('INSERT INTO MENU(NAME, PRICE, PRIME_COST, TAX_MODE, BARCODE, CATEGORY_NAME) VALUES(:name, :price, :prime_cost, :tax_mode, :barcode, :category_name)',
+    { name : _name, price : _price, prime_cost : _prime_cost, tax_mode : _tax_mode, barcode : _barcode, category_name : _category_name }, function(err, row){
       if(err) throw(err);
       if(row.info.affectedRows == 1){
         isSuccess = true;
@@ -146,6 +146,3 @@ function insertData(datas, callback){
     });
   c.end();
 }
-
-
-

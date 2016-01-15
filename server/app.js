@@ -37,6 +37,15 @@ app.use('/api/v1.1/category', category);
 app.use('/api/v1.1/purchase', purchase);
 app.use('/api/v1.1/user', user);
 
+// routes v1.2
+var category_v12 = require('./api/v1.2/category/index');
+var menu_v12 = require('./api/v1.2/menu/index');
+var purchase_v12 = require('./api/v1.2/purchase/index');
+
+app.use('/api/v1.2/category', category_v12);
+app.use('/api/v1.2/menu', menu_v12);
+app.use('/api/v1.2/purchase', purchase_v12);
+
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

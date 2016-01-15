@@ -26,7 +26,19 @@ module.exports = function (grunt) {
       },
       insert_date : {
         command : 'mysql -u root suji_dev < server/resources/v1.1/insertData.sql'
+      },
+      
+      //v1.2
+      create_db_v12 :{
+        command : 'mysql -u root < server/resources/v1.2/createDB.sql'
+      },
+      crete_table_v12 : {
+        command : 'mysql -u root suji_dev_v12 < server/resources/v1.2/createTable.sql'
+      },
+      insert_date_v12 : {
+        command : 'mysql -u root suji_dev_v12 < server/resources/v1.2/insertData.sql'
       }
+      
     },
 
     /////////////////////

@@ -1,8 +1,8 @@
 'use strict';
 
 var db = require('./menu.model.js');
-var ERROR = require('../../../components/error.code.js');
-var Module = require('../../../components/api_module.js');
+var ERROR = require('../module/error.code.js');
+var Module = require('../module/query.js');
 
 exports.showByCategory = function(req, res){
   db.selectMenuByCategory(function(results) {
@@ -26,14 +26,16 @@ exports.show = function(req, res) {
 exports.insert = function(req, res) {
   var _name = req.body.NAME;
   var _price = req.body.PRICE;
-  var _cost = req.body.COST;
-  var _tax_mode = 1;
-  
-  if(req.body.TAX_MODE == 'false') _tax_mode = 0;
+  var _prime_cost = req.body.PRIME_COST;
+  if(req.body.TAX_MODE == 'false') {
+    var _tax_mode = 0;
+  } else {
+    var _tax_mode = 1;
+  }
 
   var _barcode = req.body.BARCODE;
   var _category_name = req.body.CATEGORY_NAME;
-  var datas = [_name, _price, _cost, _tax_mode, _barcode, _category_name];
+  var datas = [_name, _price, _prime_cost, _tax_mode, _barcode, _category_name];
 
   db.insertMenu(datas, function(isSuccess){
     switch(isSuccess){
