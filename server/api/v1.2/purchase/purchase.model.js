@@ -23,7 +23,6 @@ exports.addPurchase = function(datas, callback){
         });
       },
       function(isName, callback) {
-      console.log('isNa', isName);
         addData(datas, function (success) {
           if(!success) callback(true, ERROR.ADD_PURCHASE);
           else callback(null, success);
@@ -55,7 +54,6 @@ exports.deletePurchase = function(datas, callback){
 function deleteData(datas, callback){
   var _id = datas[0];
   var isSuccess = false;
-  console.log(_id);
 
   c.query('DELETE FROM PURCHASE WHERE ID = :id',
     {id : _id}, function(err, row){

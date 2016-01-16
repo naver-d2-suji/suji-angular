@@ -49,3 +49,18 @@ exports.selectTableOrderBy = function(_table, _column, _order, callback){
   });
   c.end();
 };
+
+exports.checkIsNull = function(_column, _table, _where, _toCheck, callback){
+  var queryString = 'SELECT IFNULL('+ _column + ', true) AS isNull FROM ' + _table + ' WHERE ' + _where + ' = :toCheck';
+  var isNull = false;
+
+  c.query(queryString, { toCheck :_toCheck }, function(err, row) {
+    if (err) throw err;
+    console.log(row);
+    if (row[0].isNull == 1) //0 : not null, 1 : null
+      isNull = true;
+    callback(isNull);
+  });
+  c.end();
+};
+

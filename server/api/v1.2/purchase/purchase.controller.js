@@ -13,7 +13,6 @@ exports.index = function(req, res) {
 
 exports.add = function(req, res) {
   var result = false;
-  console.log(req.body);
 
   async.each(req.body,
     function(eachItem, callbackEach) {
@@ -24,7 +23,6 @@ exports.add = function(req, res) {
       var datas = [_name, _quantity, _total_price, _purchase_time];
 
       db.addPurchase(datas, function(isSuccess) {
-        console.log('isSuccess', isSuccess);
         switch (isSuccess) {
           case true:
             result = true;
@@ -37,25 +35,21 @@ exports.add = function(req, res) {
             break;
         }
       });
-      console.log(result);
       callbackEach();
     },
     function(err) {
       if(err) throw(err);
-      console.log(result);
-
       if (result == true) {
         res.redirect('/');
       }
       else {
-        res.send('<script>alert("Error! Add PURCHASE Error");history.back();</script>');
+        res.send('Error! Add PURCHASE Error');
       }
     }
   );
 };
 
 exports.delete = function(req, res){
-  console.log(req.body);
   var _id = req.body.ID;
   var datas = [_id];
 

@@ -1,3 +1,6 @@
+INSERT INTO USER(USERNAME, PASSWORD, STORE_NAME, STORE_ADDRESS)
+    VALUES ('test', 'test', 'Cappuccino Strip', '1735, Nambusunhwan-ro, Gwanak-gu, Seoul, Korea');
+
 INSERT INTO CATEGORY(NAME)
     VALUES ('CAKE');
 

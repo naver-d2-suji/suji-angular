@@ -37,7 +37,7 @@ module.exports = function (grunt) {
       insert_date_v12 : {
         command : 'mysql -u root suji_dev_v12 < server/resources/v1.2/insertData.sql'
       }
-      
+
     },
 
     /////////////////////
@@ -59,7 +59,7 @@ module.exports = function (grunt) {
     },
     open: {
       server : {
-        url : 'http://localhost:8080'
+        url : 'http://localhost:3000'
       }
     },
     watch: {

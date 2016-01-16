@@ -39,11 +39,13 @@ app.use('/api/v1.1/user', user);
 
 // routes v1.2
 var category_v12 = require('./api/v1.2/category/index');
-var menu_v12 = require('./api/v1.2/menu/index');
 var purchase_v12 = require('./api/v1.2/purchase/index');
+var menu_v12 = require('./api/v1.2/menu/index');
+var user_v12 = require('./api/v1.2/user/index');
 
 app.use('/api/v1.2/category', category_v12);
 app.use('/api/v1.2/menu', menu_v12);
+app.use('/api/v1.2/user', user_v12);
 app.use('/api/v1.2/purchase', purchase_v12);
 
 
