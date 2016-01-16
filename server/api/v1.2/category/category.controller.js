@@ -9,6 +9,19 @@ exports.index = function(req, res) {
   });
 };
 
+exports.list = function(req, res) {
+  var _username = req.params._username;
+
+  db.selectUserCategories(_username, function(results){
+    // results : { "CATEGORIES": "Cupcake,Cupcake,Cupcake,Cupcake11" }
+    var categoryList = results.CATEGORIES.split(',');
+    var uniqueArray = categoryList.filter(function(elem, pos) {
+      return categoryList.indexOf(elem) == pos;
+    });
+    res.send(uniqueArray);
+  });
+};
+
 exports.insert = function(req, res) {
   var _name = req.body.NAME;
   var datas = [_name];

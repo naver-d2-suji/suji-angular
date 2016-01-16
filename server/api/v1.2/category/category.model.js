@@ -21,6 +21,15 @@ exports.selectCategoryTable = function(callback){
   c.end();
 };
 
+exports.selectUserCategories = function(_username, callback){
+  c.query('SELECT CATEGORIES FROM USER WHERE USERNAME=:username',
+    {username : _username}, function(err, rows){
+      if(err) throw(err);
+      callback(rows[0]);
+    });
+  c.end();
+};
+
 exports.insertCategory = function(datas, callback){
   var _name = datas[0];
 
