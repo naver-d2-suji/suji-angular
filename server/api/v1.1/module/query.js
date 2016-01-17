@@ -48,3 +48,34 @@ exports.selectTableOrderBy = function(_table, _column, _order, callback){
   });
   c.end();
 };
+
+
+exports.checkIsNull = function(_column, _table, _where, _toCheck, callback){
+  var queryString = 'SELECT IFNULL('+ _column + ', true) AS isNull FROM ' + _table + ' WHERE ' + _where + ' = :toCheck';
+  var isNull = false;
+
+  c.query(queryString, { toCheck :_toCheck }, function(err, row) {
+    if (err) throw err;
+    console.log(row);
+    if (row[0].isNull == 1) //0 : not null, 1 : null
+      isNull = true;
+    callback(isNull);
+  });
+  c.end();
+};
+
+exports.selectTableWhere = function(_table, _column, _order, _where_column, _toCheck, callback){
+  if(_order == 'ASC'){
+    var queryString = 'SELECT * FROM ' + _table + ' WHERE ' + _where_column + ' = ' + _toCheck + ' ORDER BY ' + _column + ' ASC';
+  } else if(_order == 'DESC') {
+    var queryString = 'SELECT * FROM ' + _table + ' WHERE ' + _where_column + ' = ' + _toCheck + ' ORDER BY ' + _column + ' DESC';
+  } else {
+    var queryString = 'SELECT * FROM ' + _table + 'WHERE ' + _where_column + ' = ' + _toCheck ;
+  }
+  c.query(queryString, function(err, rows){
+    if (err)
+      throw err;
+    callback(rows);
+  });
+  c.end();
+};
