@@ -102,8 +102,7 @@ angular.module('POS')
 
         $scope.checkout = function(index) {
           console.log($scope.order);
-
-          $http.post('/api/v1.1/purchase/add', $scope.order).success(function(response) {
+          $http.post('/api/v1.1/purchase/add/' + $scope.username, $scope.order).success(function(response) {
             if (response) console.log(response);
             alert("Order total: $" + $scope.getSum() + "\n\nPayment received. Thanks.");
           });
