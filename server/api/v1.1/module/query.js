@@ -64,17 +64,19 @@ exports.checkIsNull = function(_column, _table, _where, _toCheck, callback){
   c.end();
 };
 
-exports.selectTableWhere = function(_table, _column, _order, _where_column, _toCheck, callback){
-  if(_order == 'ASC'){
-    var queryString = 'SELECT * FROM ' + _table + ' WHERE ' + _where_column + ' = ' + _toCheck + ' ORDER BY ' + _column + ' ASC';
-  } else if(_order == 'DESC') {
-    var queryString = 'SELECT * FROM ' + _table + ' WHERE ' + _where_column + ' = ' + _toCheck + ' ORDER BY ' + _column + ' DESC';
+exports.selectTableWhere = function(_table, _where_column, _toCheck, _column, _order, callback){
+  if(_order === 'ASC'){
+    var queryString = 'SELECT * FROM ' + _table + ' WHERE ' + _where_column + ' = :toCheck' + ' ORDER BY ' + _column + ' ASC';
+  } else if(_order === 'DESC') {
+    var queryString = 'SELECT * FROM ' + _table + ' WHERE ' + _where_column + ' = :toCheck' + ' ORDER BY ' + _column + ' DESC';
   } else {
-    var queryString = 'SELECT * FROM ' + _table + 'WHERE ' + _where_column + ' = ' + _toCheck ;
+    var queryString = 'SELECT * FROM ' + _table + 'WHERE ' + _where_column + ' = :toCheck';
   }
-  c.query(queryString, function(err, rows){
+  console.log(queryString);
+  c.query(queryString, {toCheck : _toCheck }, function(err, rows){
     if (err)
       throw err;
+      console.log(rows);
     callback(rows);
   });
   c.end();
