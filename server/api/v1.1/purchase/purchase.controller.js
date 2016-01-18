@@ -7,8 +7,9 @@ var Module = require('../module/query.js');
 
 exports.index = function(req, res) {
   var _username = req.params._username;
+  console.log(_username);
   // Module.selectTableOrderBy('PURCHASE', 'PURCHASE_TIME', 'DESC', function(results){
-  Module.selectTableWhere('PURCHASE', 'PURCHASE_TIME', 'DESC', 'USERNAME', _username, function(results){
+  Module.selectTableWhere('PURCHASE', 'USERNAME', _username, 'PURCHASE_TIME', 'DESC', function(results){
     res.send(results);
   });
 };

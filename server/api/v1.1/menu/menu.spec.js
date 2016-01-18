@@ -53,7 +53,7 @@ describe('POST /api/v1.1/menu/insert', function() {
       .send({
         'NAME': '_name',
         'PRICE': '_price',
-        'COST': '_cost',
+        'PRIME_COST': '_cost',
         'TAX_MODE': 'false',
         'BARCODE': '_barcode',
         'CATEGORY_NAME': 'test'
