@@ -30,7 +30,7 @@
             <thead>
             <th><div class="text-info">Name</div></th>
             <th><div class="text-info">Price</div></th>
-            <th><div class="text-info">Cost</div></th>
+            <th><div class="text-info">Prime Cost</div></th>
             <th><div class="text-info">isTaxable</div></th>
             <th><div class="text-info">Category</div></th>
             <th><div class="text-info">Action</div></th>
@@ -40,7 +40,7 @@
             <tr>
               <td><input type = "text" class = "form-control" ng-model="item.NAME"></td>
               <td><input type = "number" class = "form-control" ng-model="item.PRICE"></td>
-              <td><input type = "number" class = "form-control" ng-model="item.COST"></td>
+              <td><input type = "number" class = "form-control" ng-model="item.PRIME_COST"></td>
               <td><input type='checkbox' ng-model="item.TAX_MODE"></td>
 
               <td>
@@ -54,7 +54,7 @@
 
               <td>{{item.NAME}}</td>
               <td>{{item.PRICE}}</td>
-              <td>{{item.COST}}</td>
+              <td>{{item.PRIME_COST}}</td>
               <td>{{item.TAX_MODE}}</td>
               <td>{{item.CATEGORY_NAME}}</td>
               <td><button class = "btn btn-danger" ng-click = "removeItem(item)">Remove</button></td>

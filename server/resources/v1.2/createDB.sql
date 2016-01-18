@@ -1,2 +1,0 @@
-DROP DATABASE IF EXISTS suji_dev_v12;
-CREATE DATABASE suji_dev_v12;

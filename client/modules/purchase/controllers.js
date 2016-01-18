@@ -30,7 +30,7 @@
     };
 
     var refresh = function() {
-      $http.get('/api/v1.1/purchase').success(function(response) {
+      $http.get('/api/v1.1/purchase/' + $scope.username).success(function(response) {
         $scope.itemlist = response;
       });
     };

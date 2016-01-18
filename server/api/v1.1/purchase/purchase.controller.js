@@ -1,44 +1,56 @@
 'use strict';
 
 var db = require('./purchase.model.js');
-var ERROR = require('../../../components/error.code.js');
-var Module = require('../../../components/api_module.js');
+var async = require('async');
+var ERROR = require('../module/error.code.js');
+var Module = require('../module/query.js');
 
 exports.index = function(req, res) {
-  Module.selectTableOrderBy('PURCHASE', 'PURCHASE_TIME', 'DESC', function(results){
+  var _username = req.params._username;
+  console.log(_username);
+  // Module.selectTableOrderBy('PURCHASE', 'PURCHASE_TIME', 'DESC', function(results){
+  Module.selectTableWhere('PURCHASE', 'USERNAME', _username, 'PURCHASE_TIME', 'DESC', function(results){
     res.send(results);
   });
 };
 
 exports.add = function(req, res) {
+  var _username = req.params._username;
   var result = false;
 
-  req.body.forEach(function(eachItem){
-    var _name = eachItem.itemId;
-    var _quantity = eachItem.orderedItemCnt;
-    var _total_price = eachItem.totalPrice;
-    var _purchase_time = eachItem.purchase_time;
-    var datas = [_name, _quantity, _total_price, _purchase_time];
+  async.each(req.body,
+    function(eachItem, callbackEach) {
+      var _name = eachItem.itemId;
+      var _quantity = eachItem.orderedItemCnt;
+      var _total_price = eachItem.totalPrice;
+      var _purchase_time = eachItem.purchase_time;
+      var datas = [_name, _quantity, _total_price, _purchase_time, _username];
 
-    db.addPurchase(datas, function(isSuccess){
-      switch(isSuccess){
-        case true:
-          result = true;
-          break;
-        case ERROR.NO_NAME_IN_MENU:
-          result = false;
-          break;
-        case ERROR.ADD_PURCHASE:
-          result = false;
-          break;
+      db.addPurchase(datas, function(isSuccess) {
+        switch (isSuccess) {
+          case true:
+            result = true;
+            break;
+          case ERROR.NO_NAME_IN_MENU:
+            result = false;
+            break;
+          case ERROR.ADD_PURCHASE:
+            result = false;
+            break;
+        }
+      });
+      callbackEach();
+    },
+    function(err) {
+      if(err) throw(err);
+      if (result == true) {
+        res.redirect('/');
       }
-    });
-  });
-  if(result == true) {
-    res.redirect('/');
-  } else {
-    res.send('<script>alert("Error! Add PURCHASE Error");history.back();</script>');
-  }
+      else {
+        res.send('Error! Add PURCHASE Error');
+      }
+    }
+  );
 };
 
 exports.delete = function(req, res){

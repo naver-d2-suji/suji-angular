@@ -22,8 +22,10 @@ describe('POST /api/v1.1/category/insert', function() {
   it('should respond', function(done) {
     request(app)
       .post('/api/v1.1/category/insert')
-      .send({'NAME':'test'})
-      .expect(200) //redirect
+      .send({
+        'NAME': 'test'
+      })
+      .expect(200) 
       .end(function(err, res) {
         if (err) return done(err);
         res.should.exist;
@@ -32,4 +34,3 @@ describe('POST /api/v1.1/category/insert', function() {
       });
   });
 });
-

@@ -2,8 +2,8 @@
 
 var Client = require('mariasql');
 var async = require('async');
-var ERROR = require('../../../components/error.code.js');
-var Module = require('../../../components/api_module.js');
+var ERROR = require('../module/error.code.js');
+var Module = require('../module/query.js');
 
 var c = new Client({
   host: 'localhost',
@@ -72,11 +72,12 @@ function addData(datas, callback){
   var _quantity = datas[1];
   var _total_price = datas[2];
   var _purchase_time = datas[3];
+  var _username = datas[4];
   var isSuccess = false;
 
   if(!_purchase_time){
-    var query = 'INSERT INTO PURCHASE(NAME, QUANTITY, TOTAL_PRICE) VALUES(:name, :quantity, :totalPrice)';
-    c.query(query, {name : _name, quantity : _quantity, totalPrice : _total_price}, function(err, row){
+    var query = 'INSERT INTO PURCHASE(NAME, QUANTITY, TOTAL_PRICE, USERNAME) VALUES(:name, :quantity, :totalPrice, :username)';
+    c.query(query, { name : _name, quantity : _quantity, totalPrice : _total_price, username : _username}, function(err, row){
       if(err) throw(err);
       if(row.info.affectedRows == 1){
         isSuccess = true;
@@ -84,8 +85,8 @@ function addData(datas, callback){
       callback(isSuccess);
     });
   } else {
-    var queryWithPurchaseTime = 'INSERT INTO PURCHASE(NAME, QUANTITY, PURCHASE_TIME) VALUES(:name, :quantity, :totalPrice, :purchase_time)';
-    c.query(queryWithPurchaseTime, {name : _name, quantity : _quantity, totalPrice : _total_price, purchase_time: _purchase_time}, function(err, row){
+    var queryWithPurchaseTime = 'INSERT INTO PURCHASE(NAME, QUANTITY, PURCHASE_TIME, USERNAME) VALUES(:name, :quantity, :totalPrice, :purchase_time, :username)';
+    c.query(queryWithPurchaseTime, {name : _name, quantity : _quantity, totalPrice : _total_price, purchase_time: _purchase_time, username : _username}, function(err, row){
       if(err) throw(err);
       if(row.info.affectedRows == 1){
         isSuccess = true;

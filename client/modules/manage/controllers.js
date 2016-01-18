@@ -8,7 +8,7 @@
     $scope.username = $rootScope.globals.currentUser.username;
 
     var validate = function() {
-      if (($scope.item.NAME === "") || ($scope.item.PRICE === "") || ($scope.item.COST === ""))
+      if (($scope.item.NAME === "") || ($scope.item.PRICE === "") || ($scope.item.PRIME_COST === ""))
         return false;
       if ($scope.item.CATEGOTY_NAME === "") $scope.item.category = "None";
 
@@ -32,7 +32,7 @@
     var clear = function() {
       $scope.item = {NAME: "",
         PRICE: "",
-        COST: "",
+        PRIME_COST: "",
         CATEGOTY_NAME: "",
         TAX_MODE: false};
     };

@@ -50,7 +50,14 @@ describe('POST /api/v1.1/menu/insert', function() {
   it('should respond with success', function(done) {
     request(app)
       .post('/api/v1.1/menu/insert')
-      .send({ 'NAME' : '_name', 'PRICE' : '_price', 'COST' : '_cost', 'TAX_MODE' : 'false', 'BARCODE' : '_barcode', 'CATEGORY_NAME' : 'test' })
+      .send({
+        'NAME': '_name',
+        'PRICE': '_price',
+        'PRIME_COST': '_cost',
+        'TAX_MODE': 'false',
+        'BARCODE': '_barcode',
+        'CATEGORY_NAME': 'test'
+      })
       .expect(200)
       .end(function(err, res) {
         if (err) return done(err);
@@ -79,7 +86,9 @@ describe('POST /api/v1.1/menu/delete', function() {
   it('should respond with redirect on POST', function(done) {
     request(app)
       .post('/api/v1.1/menu/delete')
-      .send({ 'NAME' : '_name' })
+      .send({
+        'NAME': '_name'
+      })
       .expect(200)
       .end(function(err, res) {
         if (err) return done(err);
