@@ -7,8 +7,7 @@ var Module = require('../module/query.js');
 
 exports.index = function(req, res) {
   var _username = req.params._username;
-  console.log(_username);
-  // Module.selectTableOrderBy('PURCHASE', 'PURCHASE_TIME', 'DESC', function(results){
+  
   Module.selectTableWhere('PURCHASE', 'USERNAME', _username, 'PURCHASE_TIME', 'DESC', function(results){
     res.send(results);
   });
@@ -16,7 +15,6 @@ exports.index = function(req, res) {
 
 exports.add = function(req, res) {
   var _username = req.params._username;
-  var result = false;
 
   async.each(req.body,
     function(eachItem, callbackEach) {
@@ -29,26 +27,20 @@ exports.add = function(req, res) {
       db.addPurchase(datas, function(isSuccess) {
         switch (isSuccess) {
           case true:
-            result = true;
+            callbackEach();
             break;
           case ERROR.NO_NAME_IN_MENU:
-            result = false;
+            callbackEach(ERROR.NO_NAME_IN_MENU);
             break;
           case ERROR.ADD_PURCHASE:
-            result = false;
+            callbackEach(ERROR.ADD_PURCHASE);
             break;
         }
       });
-      callbackEach();
     },
     function(err) {
-      if(err) throw(err);
-      if (result == true) {
-        res.redirect('/');
-      }
-      else {
-        res.send('Error! Add PURCHASE Error');
-      }
+      if (err) res.status(500).send({ status: 'error', message: 'Error! Failed add purchase'} );
+      else     res.status(200).send({ status: 'success' }); 
     }
   );
 };

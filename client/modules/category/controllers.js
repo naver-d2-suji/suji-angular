@@ -1,8 +1,8 @@
-(function (){
+(function() {
 
   var myApp = angular.module('Category', []);
 
-  myApp.controller('CategoryController', ['$scope', '$http', '$rootScope',  function($scope, $http, $rootScope) {
+  myApp.controller('CategoryController', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
     $scope.now = new Date();
     $scope.username = $rootScope.globals.currentUser.username;
 
@@ -12,7 +12,7 @@
       return true;
     };
 
-    var getStoreInfo = function(){
+    var getStoreInfo = function() {
       $http.get('/api/v1.1/user/store/' + $scope.username).success(function(response) {
         $scope.store = response;
       });
@@ -20,7 +20,9 @@
     getStoreInfo();
 
     var clear = function() {
-      $scope.item = {NAME: ""};
+      $scope.item = {
+        NAME: ""
+      };
     };
 
     var refresh = function() {
@@ -39,7 +41,8 @@
         function successCallback(response) {
           console.log(response);
           refresh();
-        }, function errorCallback(response){
+        },
+        function errorCallback(response) {
           console.log(response);
           alert(response.data.message);
         }
@@ -53,5 +56,6 @@
         refresh();
       });
     };
+    
   }]);
 })();

@@ -1,0 +1,161 @@
+<ul>
+  <li><a href="#">Home</a></li>
+  <li><a href="#/pos">Start POS</a></li>
+  <li><a href="#/category">Add Category</a></li>
+  <li><a href="#/manage">Add Menu</a></li>
+  <li><a href="#/purchase">Purchase Log</a></li>
+  <li><a class="active" href="#/employee">Manage Employee</a></li>
+  <ul style="float:right;list-style-type:none;">
+    <li><a href="#/login">Logout</a></li>
+  </ul>
+</ul>
+
+<!-- employee view -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="jumbotron">
+        <h2><span class="text-warning">Manage Employee</span> </h2>
+        <span class="pull-right text-muted">Today is {{now | date : 'MMM dd, yyyy'}}</span>
+        <div class="text-success">{{store.STORE_NAME}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="jumbotron">
+    <div class="container">
+      <div class="col-xs-offset-2 col-xs-8">
+        <div id="employee" ng-controller="EmployeeController">
+          
+          <label for="search-box"><h4><span class="text-warning">Search for Employee by Name</span> </h4></label>
+          <input id="search-box" class="form-control" ng-model="searchText" />
+
+          <table class="table">
+            <thead>
+              <th>
+                <div class="text-info">Profile</div>
+              </th>
+              <th>
+                <div class="text-info"><a href="#/employee" ng-click="setOrderBy('id')">
+              ID<span ng-show="orderByField === 'id'">
+                  <span ng-show="!reverseSort">▲</span>
+                  <span ng-show="reverseSort">▼</span>
+                </span>
+                </a>
+                </div>
+              </th>
+
+              <th>
+                <div class="text-info"><a href="#/employee" ng-click="setOrderBy('fname')">Name<span ng-show="orderByField === 'fname'">
+                  <span ng-show="!reverseSort">▲</span>
+                  <span ng-show="reverseSort">▼</span>
+                </span>
+                </div>
+                </a>
+              </th>
+
+           
+              <th>
+                <div class="text-info"><a href="#/employee" ng-click="setOrderBy('title')">Job Title<span ng-show="orderByField === 'title'">
+                  <span ng-show="!reverseSort">▲</span>
+                  <span ng-show="reverseSort">▼</span>
+                </span>
+            </a></div>
+              </th>
+              <th>
+                <div class="text-info"><a href="#/employee" ng-click="setOrderBy('hours')">Work Hours<span ng-show="orderByField === 'hours'">
+                  <span ng-show="!reverseSort">▲</span>
+                  <span ng-show="reverseSort">▼</span>
+                </span>
+            </a></div>
+              </th>
+              <th>
+                <div class="text-info">Action</div>
+              </th>
+            </thead>
+
+
+            <tbody>
+              <tr>
+                <td>
+                  <div class="setting image_picker">
+                    <div class="settings_wrap">
+                      <label class="drop_target">
+                        <div class="image_preview"></div>
+                        <input id="inputFile" type="file" />
+                      </label>
+                    </div>
+                  </div>
+                </td>
+
+                <td><input type="text" class="form-control" placeholder="ID" ng-model="newEmployee.id" /></td>
+                <td><input type="text" class="form-control" placeholder="Name" ng-model="newEmployee.fname" /></td>
+                
+                <td>
+                  <select class="form-control" ng-model="newEmployee.title" ng-options="id as title for (id, title) in model.jobs ">
+                    <option value="">Select a Job</option>
+                  </select>
+                </td>
+                <td>
+
+                </td>
+                <td>
+                  <button class="btn btn-success glyphicon glyphicon-plus" ng-click="addEmployee(newEmployee)">Add</button>
+                </td>
+              </tr>
+             
+
+            </tbody>
+
+
+
+
+            <tfoot>
+              <tr ng-repeat="employee in model.employees
+                    | searchBy: searchText : 'fname'
+                    | orderBy: orderByField : reverseSort" ng-include="getTemplate(employee)">
+              </tr>
+              </tfooot>
+
+          </table>
+
+          <script type="text/ng-template" id="display">
+            <td></td>
+            <td>{{ employee.id }}</td>
+            <td>{{ employee.fname }}</td>
+            <td>{{ getTitle(employee.title) }}</td>
+            <td>{{ employee.hours }}</td>
+            <td>
+              <button class="btn btn-primary glyphicon glyphicon-edit" ng-click="editContact(employee)"></button>
+            </td>
+            <td>
+              <button class="btn btn-danger glyphicon glyphicon-trash" ng-click="deleteEmployee($index)"></button>
+            </td>
+          </script>
+
+          <script type="text/ng-template" id="edit">
+          <td></td>
+            <td>
+              <input type="text" class="form-control" ng-model="model.selected.id" />
+            </td>
+            <td>
+              <input type="text" class="form-control" ng-model="model.selected.fname" />
+            </td>
+            
+            <td>
+              <select class="form-control" ng-model="model.selected.title" ng-options="id as title for (id, title) in model.jobs ">
+              </select>
+            </td>
+            <td></td>
+            <td>
+              <button class="btn btn-default glyphicon glyphicon-ok" ng-click="saveContact($index)"></button>
+            </td>
+            <td>
+              <button class="btn btn-default glyphicon glyphicon-remove" ng-click="reset()"></button>
+            </td>
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
