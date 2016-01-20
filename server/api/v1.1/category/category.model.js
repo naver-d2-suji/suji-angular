@@ -2,8 +2,8 @@
 
 var Client = require('mariasql');
 var async = require('async');
-var ERROR = require('../module/error.code.js');
-var Module = require('../module/query.js');
+var ERROR = require('../../module/error.code.js');
+var Module = require('../../module/query.js');
 
 var c = new Client({
   host: 'localhost',

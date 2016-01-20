@@ -1,5 +1,5 @@
 INSERT INTO USER(USERNAME, PASSWORD, STORE_NAME, STORE_ADDRESS)
-    VALUES ('test', 'test', 'Cappuccino Strip', '1735, Nambusunhwan-ro, Gwanak-gu, Seoul, Korea');
+    VALUES ('test', 'aca5dd2f6d38af6a4d5c8a4b48109ad9c6a104846e964bfa', 'Cappuccino Strip', '1735, Nambusunhwan-ro, Gwanak-gu, Seoul, Korea');
 
 INSERT INTO CATEGORY(NAME)
     VALUES ('CAKE');

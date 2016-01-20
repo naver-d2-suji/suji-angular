@@ -26,6 +26,7 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client')));
 
+
 // routes v1.1
 var menu = require('./api/v1.1/menu/index');
 var category = require('./api/v1.1/category/index');
@@ -38,8 +39,8 @@ app.use('/api/v1.1/purchase', purchase);
 app.use('/api/v1.1/user', user);
 
 // routes v1.2
-var user_v12 = require('./api/v1.2/user/index');
-app.use('/api/v1.2/user', user_v12);
+var employee = require('./api/v1.2/employee/index');
+app.use('/api/v1.2/employee', employee);
 
 
 /// catch 404 and forward to error handler

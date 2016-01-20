@@ -21,7 +21,7 @@
 
     var clear = function() {
       $scope.item = {
-        NAME: ""
+        name: ""
       };
     };
 

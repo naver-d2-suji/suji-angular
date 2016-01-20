@@ -1,7 +1,7 @@
 'use strict';
 
 var db = require('./category.model.js');
-var ERROR = require('../module/error.code.js');
+var ERROR = require('../../module/error.code.js');
 
 exports.index = function(req, res) {
   db.selectCategoryTable(function(results) {

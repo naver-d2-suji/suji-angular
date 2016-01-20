@@ -1,8 +1,8 @@
 'use strict';
 var db = require('./user.model.js');
 
-var ERROR = require('../module/error.code.js');
-var Crypto = require('../module/crypto.js');
+var ERROR = require('../../module/error.code.js');
+var Crypto = require('../../module/crypto.js');
 
 
 exports.login = function(req, res) {

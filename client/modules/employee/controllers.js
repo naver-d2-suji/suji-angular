@@ -1,8 +1,15 @@
 (function() {
-  var myApp = angular.module('Employee', []);
-  myApp.controller('EmployeeController', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+  var myApp = angular.module('Employee', ['ngFileUpload']);
+
+  myApp.controller('EmployeeController', ['$scope', '$http', '$rootScope', 'Upload', function($scope, $http, $rootScope) {
     $scope.now = new Date();
     $scope.username = $rootScope.globals.currentUser.username;
+
+    var validate = function() {
+      if (($scope.newEmployee.id === "") || ($scope.newEmployee.title === "") || ($scope.newEmployee.name === ""))
+        return false;
+      return true;
+    };
 
     var getStoreInfo = function() {
       $http.get('/api/v1.1/user/store/' + $scope.username).success(function(response) {
@@ -11,47 +18,68 @@
     };
     getStoreInfo();
 
+    var clear = function() {
+      $scope.newEmployee = {
+        id: "",
+        title: "",
+        name: "",
+        employer: $scope.username
+      };
+    };
 
     // Initialize values for table sorting
     $scope.orderByField = 'id';
     $scope.reverseSort = false;
+    $scope.titles = [
+      'Manager',
+      'Part-timer'
+    ];
 
     $scope.model = {
-      employees: [{
-        uniqueId: 0,
-        id: 3289123456,
-        fname: 'Alice',
-        lname: 'Copper',
-        title: 'fed',
-        hours: 0
-      }, {
-        uniqueId: 1,
-        id: 328234567,
-        fname: 'Bob',
-        lname: 'Smith',
-        title: 'proj',
-        hours: 20
-      }],
+      employees: [],
       selected: {},
-      jobs: {
-        fed: 'Front-End Developer',
-        proj: 'Project Manager'
-      }
     };
+
+    var refresh = function() {
+      $http.get('/api/v1.2/employee').success(function(response) {
+        $scope.model.employees = response;
+      });
+    };
+    refresh();
+    clear();
+
 
     $scope.addEmployee = function(newEmployee) {
-      newEmployee = angular.copy(newEmployee);
-      newEmployee.uniqueId = $scope.model.employees.length;
-      $scope.model.employees.push(newEmployee);
+      if (!validate()) return;
+
+      console.log(newEmployee);
+      var file = $scope.myFile;
+      console.dir(file);
+
+
+      $http.post('/api/v1.2/employee/insert', newEmployee).then(
+        function successCallback(response) {
+          console.log(response);
+          refresh();
+        },
+        function errorCallback(response) {
+          console.log(response);
+          alert(response.data.message);
+        }
+      );
     };
 
-    $scope.deleteEmployee = function(index) {
-      $scope.model.employees.splice(index, 1);
-    };
-
-    $scope.getTitle = function(id) {
-      return $scope.model.jobs[id];
-
+    $scope.deleteEmployee = function(employee) {
+      $http.post('/api/v1.2/employee/delete', employee).then(
+        function successCallback(response) {
+          console.log(response);
+          refresh();
+        },
+        function errorCallback(response) {
+          console.log(response);
+          alert(response.data.message);
+        }
+      );
     };
 
     $scope.setOrderBy = function(value) {
@@ -61,7 +89,7 @@
 
     // gets the template to ng-include for a table row / item
     $scope.getTemplate = function(employee) {
-      if (employee.uniqueId === $scope.model.selected.uniqueId) {
+      if (employee.ID === $scope.model.selected.ID) {
         return 'edit';
       }
       else {
@@ -73,10 +101,20 @@
       $scope.model.selected = angular.copy(employee);
     };
 
-    $scope.saveContact = function(idx) {
-      console.log('Saving employee');
-      $scope.model.employees[idx] = angular.copy($scope.model.selected);
+    $scope.saveContact = function(idx, ID) {
+      console.log($scope.model.selected);
+       $http.post('/api/v1.2/employee/update', $scope.model.selected).then(
+        function successCallback(response) {
+          console.log(response);
+          refresh();
+        },
+        function errorCallback(response) {
+          console.log(response);
+          alert(response.data.message);
+        }
+      );
       $scope.reset();
+      clear();
     };
 
     $scope.reset = function() {
@@ -92,7 +130,6 @@
     };
 
 
-    ////
     //Employee Profile
     var $dropzone = $('.image_picker');
     var $droptarget = $('.drop_target');
@@ -156,8 +193,7 @@
       }
     });
     ////
-    
-    
+
   }]);
   // Custom search func
   myApp.filter('searchBy', [function() {
@@ -168,6 +204,23 @@
       return arr.filter(function(item) {
         return item[prop].indexOf(searchText) > -1;
       });
+    };
+  }]);
+
+
+  myApp.directive('fileModel', ['$parse', function($parse) {
+    return {
+      restrict: 'A',
+      link: function(scope, element, attrs) {
+        var model = $parse(attrs.fileModel);
+        var modelSetter = model.assign;
+
+        element.bind('change', function() {
+          scope.$apply(function() {
+            modelSetter(scope, element[0].files[0]);
+          });
+        });
+      }
     };
   }]);
 

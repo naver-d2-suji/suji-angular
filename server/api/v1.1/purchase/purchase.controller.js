@@ -2,8 +2,8 @@
 
 var db = require('./purchase.model.js');
 var async = require('async');
-var ERROR = require('../module/error.code.js');
-var Module = require('../module/query.js');
+var ERROR = require('../../module/error.code.js');
+var Module = require('../../module/query.js');
 
 exports.index = function(req, res) {
   var _username = req.params._username;

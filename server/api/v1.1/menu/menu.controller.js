@@ -1,8 +1,8 @@
 'use strict';
 
 var db = require('./menu.model.js');
-var ERROR = require('../module/error.code.js');
-var Module = require('../module/query.js');
+var ERROR = require('../../module/error.code.js');
+var Module = require('../../module/query.js');
 
 exports.showByCategory = function(req, res) {
   db.selectMenuByCategory(function(results) {

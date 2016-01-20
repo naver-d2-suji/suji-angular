@@ -1,0 +1,5 @@
+INSERT INTO EMPLOYEE(ID, NAME, TITLE, EMPLOYER)
+    VALUES (23213, 'Jin, HT', 'Manager', 'test');
+    
+INSERT INTO EMPLOYEE(ID, NAME, TITLE, EMPLOYER)
+    VALUES (33333, 'zsa', 'Partimer', 'test');
