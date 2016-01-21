@@ -2,6 +2,38 @@
 
 var db = require('./employee.model.js');
 var ERROR = require('../../module/error.code.js');
+var fs = require('fs');
+var path = require('path');
+
+exports.uploadProfile = function(req, res) {
+  var _id = req.params._id;
+  var file = req.files.file;
+
+  var tmpArr = file.path.split('/');
+  var tmpName = tmpArr[tmpArr.length-1].split('.');
+  tmpName[0] = _id;
+  var fileName = tmpName.join('.');
+  tmpArr[tmpArr.length-1] = fileName;
+  var renamePath = tmpArr.join('/');
+
+  fs.rename(file.path, renamePath, function(err) {
+    if (err) throw err;
+    console.log('renamed complete');
+    res.status(200).send({
+      status: 'success'
+    });
+  });
+};
+
+
+exports.showProfile = function(req, res) {
+  var imgName = req.params._id + '.jpg';
+  var imgPath = path.resolve('server/resources/profile/', imgName);
+  console.log(imgPath);
+  var img = fs.readFileSync(imgPath);
+  res.writeHead(200, {'Content-Type':'image/png'});
+  res.end(img, 'binary');
+};
 
 exports.index = function(req, res) {
   db.selectEmployeeTable(function(results) {
@@ -72,7 +104,7 @@ exports.delete = function(req, res) {
   });
 };
 
-exports.update = function(req, res){
+exports.update = function(req, res) {
   var _id = req.body.ID;
   var _name = req.body.NAME;
   var _title = req.body.TITLE;

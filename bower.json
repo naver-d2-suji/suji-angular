@@ -4,9 +4,8 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "components"
+    "bower_components"
   ],
   "dependencies": {
-    "ng-file-upload": "~11.1.1"
   }
 }

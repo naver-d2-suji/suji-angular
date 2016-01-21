@@ -1,7 +1,7 @@
 (function() {
-  var myApp = angular.module('Employee', ['ngFileUpload']);
+  var myApp = angular.module('Employee', []);
 
-  myApp.controller('EmployeeController', ['$scope', '$http', '$rootScope', 'Upload', function($scope, $http, $rootScope) {
+  myApp.controller('EmployeeController', ['$scope', '$http', '$rootScope', 'fileUpload', function($scope, $http, $rootScope, fileUpload) {
     $scope.now = new Date();
     $scope.username = $rootScope.globals.currentUser.username;
 
@@ -51,15 +51,17 @@
 
     $scope.addEmployee = function(newEmployee) {
       if (!validate()) return;
-
       console.log(newEmployee);
-      var file = $scope.myFile;
-      console.dir(file);
 
 
       $http.post('/api/v1.2/employee/insert', newEmployee).then(
         function successCallback(response) {
           console.log(response);
+          //upload profile
+          var file = $scope.myFile;
+          var uploadUrl = "/api/v1.2/employee/profile/" + newEmployee.id;
+          fileUpload.uploadFileToUrl(file, uploadUrl);
+
           refresh();
         },
         function errorCallback(response) {
@@ -103,7 +105,7 @@
 
     $scope.saveContact = function(idx, ID) {
       console.log($scope.model.selected);
-       $http.post('/api/v1.2/employee/update', $scope.model.selected).then(
+      $http.post('/api/v1.2/employee/update', $scope.model.selected).then(
         function successCallback(response) {
           console.log(response);
           refresh();
@@ -207,6 +209,21 @@
     };
   }]);
 
+  myApp.service('fileUpload', ['$http', function($http) {
+    this.uploadFileToUrl = function(file, uploadUrl) {
+      var fd = new FormData();
+      fd.append('file', file);
+      console.log(uploadUrl);
+      $http.post(uploadUrl, fd, {
+          transformRequest: angular.identity,
+          headers: {
+            'Content-Type': undefined
+          }
+        })
+        .success(function() {})
+        .error(function() {});
+    }
+  }]);
 
   myApp.directive('fileModel', ['$parse', function($parse) {
     return {

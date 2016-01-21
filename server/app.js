@@ -6,6 +6,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var multer = require('multer');
 
 var app = express();
 
@@ -19,13 +20,17 @@ app.set('view engine', 'ejs');
 
 // app.use(favicon(__dirname + '/public/img/favicon.ico'));
 app.use(logger('dev'));
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: true
+  extended: true,
+  limit: '5mb'
 }));
+app.use(bodyParser.json({
+  limit: '5mb'
+}));
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client')));
-
+// file upload
 
 // routes v1.1
 var menu = require('./api/v1.1/menu/index');
@@ -41,6 +46,7 @@ app.use('/api/v1.1/user', user);
 // routes v1.2
 var employee = require('./api/v1.2/employee/index');
 var stats = require('./api/v1.2/stats/index');
+
 app.use('/api/v1.2/employee', employee);
 app.use("/api/v1.2/stats", stats);
 

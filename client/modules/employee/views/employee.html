@@ -34,7 +34,9 @@
 
           <table class="table">
             <thead>
-
+              <th>
+                <div class="text-info">Profile</div>
+              </th>
               <th>
                 <div class="text-info"><a href="#/employee" ng-click="setOrderBy('ID')">ID<span ng-show="orderByField === 'ID'">
                   <span ng-show="!reverseSort">▲</span>
@@ -71,9 +73,17 @@
 
 
             <tbody>
-
               <tr>
-
+                <td>
+                  <div class="setting image_picker">
+                    <div class="settings_wrap">
+                      <label class="drop_target">
+                        <div class="image_preview"></div>
+                        <input id="inputFile" type="file" file-model="myFile" accept="'image/*'" />
+                      </label>
+                    </div>
+                  </div>
+                </td>
 
                 <td>
                   <input type="number" class="form-control" placeholder="ID" ng-model="newEmployee.id" />
@@ -92,7 +102,7 @@
 
                 </td>
                 <td>
-                  <button class="btn btn-success glyphicon glyphicon-plus" ng-click="addEmployee(newEmployee)">Add</button>
+                  <button type="submit" class="btn btn-success glyphicon glyphicon-plus" ng-click="addEmployee(newEmployee)">Add</button>
                 </td>
               </tr>
 
@@ -104,6 +114,7 @@
                     | searchBy: searchText : 'NAME'
                     | orderBy: orderByField : reverseSort" ng-include="getTemplate(employee)">
 
+                <td><img ng-src='http://localhost:8080/api/v1.2/employee/profile/{{employee.ID}}'></td>
                 <td>{{employee.ID}}</td>
                 <td>{{employee.NAME}}</td>
                 <td>{{employee.TITLE}}</td>
@@ -113,7 +124,7 @@
           </table>
 
           <script type="text/ng-template" id="display">
-
+            <td><img ng-src='http://localhost:8080/api/v1.2/employee/profile/{{employee.ID}}'></td>
             <td>{{ employee.ID }}</td>
             <td>{{ employee.NAME }}</td>
             <td>{{ employee.TITLE }}</td>
@@ -127,7 +138,7 @@
           </script>
 
           <script type="text/ng-template" id="edit">
-            <td></td>
+            <td><img ng-src='http://localhost:8080/api/v1.2/employee/profile/{{employee.ID}}'></td>
             <td>{{employee.ID}}</td>
             <td>
               <input type="text" class="form-control" ng-model="model.selected.NAME" />
@@ -147,9 +158,9 @@
               <button class="btn btn-default glyphicon glyphicon-remove" ng-click="reset()"></button>
             </td>
           </script>
-          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
