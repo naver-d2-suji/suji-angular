@@ -9,6 +9,7 @@ angular.module('POS', []);
 angular.module('Home', []);
 angular.module('Purchase', []);
 angular.module('Employee', []);
+angular.module('Statistics', []);
 
 angular.module('SUJI', [
   'Authentication',
@@ -19,6 +20,7 @@ angular.module('SUJI', [
   'POS',
   'Home',
   'Employee',
+  'Statistics',
   'ngRoute',
   'ngCookies'
 ])
@@ -55,6 +57,11 @@ angular.module('SUJI', [
   .when('/purchase', {
     controller: 'PurchaseController',
     templateUrl: 'modules/purchase/views/purchase.html'
+  })
+
+  .when('/statistics', {
+    controller: 'StatisticsController',
+    templateUrl: 'modules/statistics/views/statistics.html'
   })
 
   .when('/employee', {

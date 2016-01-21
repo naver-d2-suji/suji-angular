@@ -40,7 +40,9 @@ app.use('/api/v1.1/user', user);
 
 // routes v1.2
 var employee = require('./api/v1.2/employee/index');
+var stats = require('./api/v1.2/stats/index');
 app.use('/api/v1.2/employee', employee);
+app.use("/api/v1.2/stats", stats);
 
 
 /// catch 404 and forward to error handler

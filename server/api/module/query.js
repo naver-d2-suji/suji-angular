@@ -6,7 +6,7 @@ var async = require('async');
 var c = new Client({
   host: 'localhost',
   user: 'root',
-  password: '',
+  password: '123qwe',
   db: 'suji_dev'
 });
 

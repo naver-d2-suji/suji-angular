@@ -8,7 +8,7 @@ var Module = require('../../module/query.js');
 var c = new Client({
   host: 'localhost',
   user: 'root',
-  password: '',
+  password: '123qwe',
   db: 'suji_dev'
 });
 
@@ -136,7 +136,7 @@ function insertData(datas, callback) {
   var _category_name = datas[5];
   var isSuccess = false;
 
-  c.query('INSERT INTO MENU(NAME, PRICE, PRIME_COST, TAX_MODE, BARCODE, CATEGORY_NAME) VALUES(:name, :price, :prime_cost, :tax_mode, :barcode, :category_name)', 
+  c.query('INSERT INTO MENU(NAME, PRICE, PRIME_COST, TAX_MODE, BARCODE, CATEGORY_NAME) VALUES(:name, :price, :prime_cost, :tax_mode, :barcode, :category_name)',
   { name: _name, price: _price, prime_cost: _prime_cost, tax_mode: _tax_mode, barcode: _barcode, category_name: _category_name }, function(err, row) {
     if (err) throw (err);
     if (row.info.affectedRows == 1) {

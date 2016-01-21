@@ -14,13 +14,6 @@
     };
     getStoreInfo();
 
-    var getCategories = function() {
-      $http.get('/api/v1.1/category').success(function(response) {
-        $scope.categories = response;
-      });
-    };
-    getCategories();
-
     var clear = function() {
       $scope.item = {
         NAME: "",
@@ -34,6 +27,7 @@
     var refresh = function() {
       $http.get('/api/v1.1/purchase/' + $scope.username).success(function(response) {
         $scope.itemlist = response;
+        console.log($scope.itemlist);
       });
     };
 

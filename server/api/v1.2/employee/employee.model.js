@@ -8,7 +8,7 @@ var Module = require('../../module/query.js');
 var c = new Client({
   host: 'localhost',
   user: 'root',
-  password: '',
+  password: '123qwe',
   db: 'suji_dev'
 });
 
@@ -61,7 +61,7 @@ function insertData(datas, callback) {
   var _employer = datas[3];
   var isSuccess = false;
 
-  c.query('INSERT INTO EMPLOYEE(ID, NAME, TITLE, EMPLOYER) VALUES(:id, :name, :title, :employer)', 
+  c.query('INSERT INTO EMPLOYEE(ID, NAME, TITLE, EMPLOYER) VALUES(:id, :name, :title, :employer)',
   { id: _id, name : _name, title : _title, employer : _employer }, function(err, row) {
     if (err) throw (err);
     if (row.info.affectedRows == 1) {
