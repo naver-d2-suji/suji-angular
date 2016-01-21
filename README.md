@@ -3,7 +3,7 @@
 # SUJI [![Build Status](https://travis-ci.org/naver-d2-suji/suji.svg)](https://travis-ci.org/naver-d2-suji/suji)
 > 소상공인들이 수지 맞기를 기원하는 웹 기반 오픈소스 POS 시스템
 ![SUJI](https://cloud.githubusercontent.com/assets/7614353/12139794/1329ce44-b4a6-11e5-90a2-dd51d039e01d.png)
-- [**소개 영상**](https://youtu.be/0mEFdHfyu00)
+- [**소개 영상**](https://youtu.be/fMRXjG3Plu8)
 &nbsp;
 
 ## Development Stack
@@ -55,6 +55,11 @@ npm install --global grunt
 | 구매 목록 |	GET	| /api/v1.1/purchase | complete |
 | 구매 리스트 추가 |	POST	| /api/v1.1/purchase/add | complete |
 | 구매 리스트 삭제 |	POST	| /api/v1.1/purchase/delete | complete |
+| 일별 매출 현황 |	GET	| /api/v1.2/stats/daily | complete |
+| 직원 목록 보기 |	GET	| /api/v1.2/employee | complete |
+| 직원 추가 |	POST	| /api/v1.2/employee/insert | complete |
+| 직원 삭제 |	DELETE	| /api/v1.2/employee/delete | complete |
+| 직원 추가 |	UPDATE	| /api/v1.2/employee/update | complete |
 
 
 &nbsp;
