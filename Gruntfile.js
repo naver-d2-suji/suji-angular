@@ -21,17 +21,17 @@ module.exports = function(grunt) {
         failOnError: true
       },
       create_db: {
-        command: 'mysql -u root --password=123qwe < server/resources/v1.1/createDB.sql'
+        command: 'mysql -u root < server/resources/v1.1/createDB.sql'
       },
       crete_table: {
-        command: 'mysql -u root --password=123qwe suji_dev < server/resources/v1.1/createTable.sql'
+        command: 'mysql -u root suji_dev < server/resources/v1.1/createTable.sql'
       },
       insert_data: {
-        command: 'mysql -u root --password=123qwe suji_dev < server/resources/v1.1/insertData.sql'
+        command: 'mysql -u root suji_dev < server/resources/v1.1/insertData.sql'
       },
       //v1.2
       insert_data_v12: {
-        command: 'mysql -u root --password=123qwe suji_dev < server/resources/v1.2/insertData.sql'
+        command: 'mysql -u root suji_dev < server/resources/v1.2/insertData.sql'
       }
     },
 

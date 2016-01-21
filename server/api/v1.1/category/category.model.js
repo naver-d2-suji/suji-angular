@@ -8,7 +8,7 @@ var Module = require('../../module/query.js');
 var c = new Client({
   host: 'localhost',
   user: 'root',
-  password: '123qwe',
+  password: '',
   db: 'suji_dev'
 });
 

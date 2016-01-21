@@ -9,10 +9,10 @@ describe('GET /api/v1.2/stats/daily', function() {
     request(app)
       .get('/api/v1.2/stats/daily')
       .expect(200)
-      .expect('Content-Type', /json/)
       .end(function(err, res) {
         if (err) return done(err);
-        res.body.should.be.instanceof(Array);
+        res.should.exist;
+        res.status.should.equal(200);
         done();
       });
   });

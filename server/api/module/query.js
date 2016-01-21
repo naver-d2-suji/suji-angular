@@ -6,9 +6,10 @@ var async = require('async');
 var c = new Client({
   host: 'localhost',
   user: 'root',
-  password: '123qwe',
+  password: '',
   db: 'suji_dev'
 });
+exports.c = c;
 
 exports.checkExistsRows = function(_table, _column, _toCheck, callback){
   var queryString = 'SELECT EXISTS(SELECT 1 FROM ' + _table + ' WHERE ' + _column + ' = :toCheck) AS checkResult';

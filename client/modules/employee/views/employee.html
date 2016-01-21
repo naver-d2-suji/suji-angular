@@ -34,9 +34,7 @@
 
           <table class="table">
             <thead>
-              <th>
-                <div class="text-info">Profile</div>
-              </th>
+
               <th>
                 <div class="text-info"><a href="#/employee" ng-click="setOrderBy('ID')">ID<span ng-show="orderByField === 'ID'">
                   <span ng-show="!reverseSort">▲</span>
@@ -51,8 +49,8 @@
                   <span ng-show="!reverseSort">▲</span>
                   <span ng-show="reverseSort">▼</span>
                 </span>
-                </div>
-                </a>
+
+                </a></div>
               </th>
 
 
@@ -76,16 +74,6 @@
 
               <tr>
 
-                <td>
-                  <div class="setting image_picker">
-                    <div class="settings_wrap">
-                      <label class="drop_target">
-                        <div class="image_preview"></div>
-                        <input id="inputFile" type="file" file-model="myFile" />
-                      </label>
-                    </div>
-                  </div>
-                </td>
 
                 <td>
                   <input type="number" class="form-control" placeholder="ID" ng-model="newEmployee.id" />
@@ -115,7 +103,7 @@
               <tr ng-repeat="employee in model.employees
                     | searchBy: searchText : 'NAME'
                     | orderBy: orderByField : reverseSort" ng-include="getTemplate(employee)">
-                <td></td>
+
                 <td>{{employee.ID}}</td>
                 <td>{{employee.NAME}}</td>
                 <td>{{employee.TITLE}}</td>
@@ -125,7 +113,7 @@
           </table>
 
           <script type="text/ng-template" id="display">
-            <td></td>
+
             <td>{{ employee.ID }}</td>
             <td>{{ employee.NAME }}</td>
             <td>{{ employee.TITLE }}</td>
