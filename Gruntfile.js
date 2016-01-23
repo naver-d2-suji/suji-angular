@@ -12,7 +12,7 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-
+    profileDir: 'server/resources/profile/*.jpg',
     // Generate DB, Tables automatically
     shell: {
       options: {
@@ -20,22 +20,24 @@ module.exports = function(grunt) {
         stderr: true,
         failOnError: true
       },
-      create_db: {
-        command: 'mysql -u root < server/resources/v1.1/createDB.sql'
+
+      multiple: {
+        command: [
+          // db for v1.1
+          'mysql -u root < server/resources/v1.1/createDB.sql',
+          'mysql -u root suji_dev < server/resources/v1.1/createTable.sql',
+          'mysql -u root suji_dev < server/resources/v1.1/insertData.sql',
+        ].join('&&')
       },
-      crete_table: {
-        command: 'mysql -u root suji_dev < server/resources/v1.1/createTable.sql'
-      },
-      insert_data: {
-        command: 'mysql -u root suji_dev < server/resources/v1.1/insertData.sql'
-      },
+
       //v1.2
       insert_data_v12: {
         command: 'mysql -u root suji_dev < server/resources/v1.2/insertData.sql'
       },
+      
       //profile file delete
-      delete_profile : {
-        command : 'rm server/resources/profile/*.jpg'
+      delete_profile: {
+        command: 'rm -f <%= profileDir %>'
       }
     },
 
