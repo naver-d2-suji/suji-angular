@@ -10,10 +10,10 @@ exports.uploadProfile = function(req, res) {
   var file = req.files.file;
 
   var tmpArr = file.path.split('/');
-  var tmpName = tmpArr[tmpArr.length-1].split('.');
+  var tmpName = tmpArr[tmpArr.length - 1].split('.');
   tmpName[0] = _id;
   var fileName = tmpName.join('.');
-  tmpArr[tmpArr.length-1] = fileName;
+  tmpArr[tmpArr.length - 1] = fileName;
   var renamePath = tmpArr.join('/');
 
   fs.rename(file.path, renamePath, function(err) {
@@ -31,7 +31,9 @@ exports.showProfile = function(req, res) {
   var imgPath = path.resolve('server/resources/profile/', imgName);
   console.log(imgPath);
   var img = fs.readFileSync(imgPath);
-  res.writeHead(200, {'Content-Type':'image/png'});
+  res.writeHead(200, {
+    'Content-Type': 'image/png'
+  });
   res.end(img, 'binary');
 };
 
@@ -80,6 +82,8 @@ exports.insert = function(req, res) {
 exports.delete = function(req, res) {
   var _id = req.body.ID;
   var datas = [_id];
+  var imgName = _id + '.jpg';
+  var imgPath = path.resolve('server/resources/profile/', imgName);
 
   db.deleteEmployee(datas, function(isSuccess) {
     switch (isSuccess) {
@@ -100,6 +104,15 @@ exports.delete = function(req, res) {
           message: 'Error! Delete EMPLOYEE Error'
         });
         break;
+    }
+  });
+  // File Delete
+  fs.exists(imgPath, function(exists) {
+    if (exists) {
+      fs.unlink(imgPath, function(err) {
+        if (err) throw err;
+        console.log('successfully deleted ', imgPath);
+      });
     }
   });
 };

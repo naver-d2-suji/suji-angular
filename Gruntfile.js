@@ -32,6 +32,10 @@ module.exports = function(grunt) {
       //v1.2
       insert_data_v12: {
         command: 'mysql -u root suji_dev < server/resources/v1.2/insertData.sql'
+      },
+      //profile file delete
+      delete_profile : {
+        command : 'rm server/resources/profile/*.jpg'
       }
     },
 

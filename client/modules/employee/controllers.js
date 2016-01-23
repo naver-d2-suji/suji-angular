@@ -6,7 +6,9 @@
     $scope.username = $rootScope.globals.currentUser.username;
 
     var validate = function() {
-      if (($scope.newEmployee.id === "") || ($scope.newEmployee.title === "") || ($scope.newEmployee.name === ""))
+      
+      console.log($scope.myFile);
+      if (($scope.newEmployee.id === "") || ($scope.newEmployee.title === "") || ($scope.newEmployee.name === "") || ($scope.myFile == undefined))
         return false;
       return true;
     };
@@ -50,6 +52,7 @@
 
 
     $scope.addEmployee = function(newEmployee) {
+      
       if (!validate()) return;
       console.log(newEmployee);
 
@@ -60,9 +63,12 @@
           //upload profile
           var file = $scope.myFile;
           var uploadUrl = "/api/v1.2/employee/profile/" + newEmployee.id;
-          fileUpload.uploadFileToUrl(file, uploadUrl);
+          fileUpload.uploadFileToUrl(file, uploadUrl, function(isSuccess){
+            if(isSuccess == 'success'){
+              refresh();
+            }
+          });
 
-          refresh();
         },
         function errorCallback(response) {
           console.log(response);
@@ -210,18 +216,26 @@
   }]);
 
   myApp.service('fileUpload', ['$http', function($http) {
-    this.uploadFileToUrl = function(file, uploadUrl) {
+    this.uploadFileToUrl = function(file, uploadUrl, callback) {
       var fd = new FormData();
       fd.append('file', file);
       console.log(uploadUrl);
       $http.post(uploadUrl, fd, {
-          transformRequest: angular.identity,
-          headers: {
-            'Content-Type': undefined
-          }
-        })
-        .success(function() {})
-        .error(function() {});
+        transformRequest: angular.identity,
+        headers: {
+          'Content-Type': undefined
+        }
+      }).then(
+        function successCallback(response) {
+          console.log(response);
+          callback('success');
+        },
+        function errorCallback(response) {
+          console.log(response);
+          callback('fail');
+          alert(response.data.message);
+        }
+      );
     }
   }]);
 
