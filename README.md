@@ -1,8 +1,8 @@
 
 
 # SUJI-Angular
-> This is old repository. To be deleted
-> New version using electron, redux is comming soon
+- This is old repository. To be deleted
+- New version using electron, redux is comming soon
 
 ![SUJI](https://cloud.githubusercontent.com/assets/7614353/12139794/1329ce44-b4a6-11e5-90a2-dd51d039e01d.png)
 - [**소개 영상**](https://youtu.be/fMRXjG3Plu8)
